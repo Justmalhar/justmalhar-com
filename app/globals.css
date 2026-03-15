@@ -12,6 +12,7 @@ html {
 
 body {
   @apply bg-background text-foreground antialiased;
+  background-image: radial-gradient(circle at top, rgba(124, 58, 237, 0.12), transparent 28%);
 }
 
 a {
@@ -19,13 +20,39 @@ a {
 }
 
 .container-shell {
-  @apply mx-auto max-w-6xl px-6;
+  @apply mx-auto w-full max-w-6xl px-6;
 }
 
-.card {
-  @apply rounded-2xl border border-border bg-card p-6 shadow-sm;
+.reading-shell {
+  @apply mx-auto w-full max-w-3xl px-6;
 }
 
 .eyebrow {
   @apply text-xs uppercase tracking-[0.24em] text-muted;
+}
+
+.prose-friendly {
+  @apply max-w-3xl text-[17px] leading-8 text-foreground sm:text-[18px];
+}
+
+.prose-friendly p {
+  @apply mb-6;
+}
+
+.prose-friendly h1,
+.prose-friendly h2,
+.prose-friendly h3 {
+  @apply tracking-tight text-foreground;
+}
+
+.prose-friendly h2 {
+  @apply mt-12 mb-4 text-3xl font-semibold;
+}
+
+.prose-friendly h3 {
+  @apply mt-8 mb-3 text-2xl font-semibold;
+}
+
+.prose-friendly ul {
+  @apply mb-6 ml-5 list-disc space-y-2 text-muted;
 }
