@@ -1,0 +1,31 @@
+---
+title: Local vs frontier models is an architecture decision
+slug: local-vs-frontier-models-is-an-architecture-decision
+summary: Short notes on when local models win, when hosted frontier models win, and why this should be treated as an architecture choice instead of identity politics.
+type: note
+status: published
+accessLevel: public
+publishedAt: 2026-03-15
+tags:
+  - models
+  - infrastructure
+  - architecture
+eyebrow: Operator note
+---
+
+A lot of model debates are really disguised system design debates.
+
+## Local models win when
+
+- privacy matters more than absolute ceiling performance
+- latency needs to be predictable
+- costs compound under repeat usage
+- you need control over inference behavior and deployment shape
+
+## Frontier APIs win when
+
+- output quality still dominates the constraint set
+- you are iterating fast and do not want infra drag
+- your use case benefits from multimodal capabilities and tool ecosystems that move quickly
+
+The mistake is making this ideological. In practice, most real systems end up hybrid.

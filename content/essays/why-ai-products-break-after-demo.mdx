@@ -1,0 +1,45 @@
+---
+title: Why most AI products break after the demo
+slug: why-most-ai-products-break-after-the-demo
+summary: A practical essay on where AI products fail after the first impressive demo, and what has to exist for them to stay trustworthy in the wild.
+type: essay
+status: published
+accessLevel: public
+publishedAt: 2026-03-15
+tags:
+  - ai systems
+  - reliability
+  - agents
+eyebrow: Essay
+seoTitle: Why most AI products break after the demo
+seoDescription: A practical essay on reliability, orchestration, and trust in AI systems.
+---
+
+The demo is the easiest part of an AI product.
+
+A good prompt, a cherry-picked input, and a clean UI can make almost anything feel inevitable for five minutes. The problems start the second a real user shows up with messy data, unclear intent, inconsistent timing, and no patience for the magic trick.
+
+## Demos optimize for surprise. Products optimize for trust.
+
+That sounds obvious, but teams still build as if the wow moment is the product. It is not. The product is everything required **after** the output is generated:
+
+- validation
+- retries
+- state tracking
+- permission boundaries
+- human override
+- observability
+
+If those layers are missing, what you have is a stage performance with a billing page attached.
+
+## Reliability is mostly unglamorous systems work
+
+The best AI products I’ve seen are rarely prompt-first. They are contract-first. Inputs are normalized. Outputs are checked. Every tool call has guardrails. Failure paths exist before success screenshots do.
+
+This is why “AI app” is not really a category. There are only software systems with probabilistic components. Once you accept that, the engineering decisions get much clearer.
+
+## The bar keeps moving upward
+
+What felt magical eighteen months ago is table stakes now. That is actually useful. It means advantage shifts away from superficial novelty and toward integration quality, distribution, and operational discipline.
+
+The companies that win will not be the ones with the loudest launch thread. They will be the ones whose products continue to work after the fifth failure mode shows up.

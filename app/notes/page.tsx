@@ -1,25 +1,10 @@
 import { ContentGrid } from '@/components/content-grid';
 import { PageHero } from '@/components/page-hero';
-
-const items = [
-  {
-    title: 'LLM system notes',
-    description: 'Short technical observations on architecture, tools, tradeoffs, and workflow patterns.',
-    meta: 'Note',
-  },
-  {
-    title: 'Build updates',
-    description: 'Fragments from shipping, debugging, and turning technical work into reusable knowledge.',
-    meta: 'Build log',
-  },
-  {
-    title: 'Operator fragments',
-    description: 'Concise notes with more signal than a social post and less ceremony than an essay.',
-    meta: 'Short-form',
-  },
-];
+import { getContentByType } from '@/lib/content/collections';
 
 export default function NotesPage() {
+  const items = getContentByType('note');
+
   return (
     <div className="pb-16">
       <PageHero

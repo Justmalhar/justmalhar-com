@@ -1,6 +1,6 @@
 import { PageHero } from '@/components/page-hero';
+import { EmailCaptureForm } from '@/components/forms/email-capture-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 
 export default function SubscribePage() {
   return (
@@ -8,18 +8,18 @@ export default function SubscribePage() {
       <PageHero
         eyebrow="SUBSCRIBE"
         title="Get free resources, new essays, and premium updates in your inbox."
-        description="This will become the central capture layer for lead magnets, newsletters, product launches, and future premium content."
+        description="The capture layer is live in MVP form: emails are stored locally behind a persistence abstraction that can later point at Supabase and Resend."
       />
       <div className="container-shell max-w-3xl">
         <Card>
           <CardHeader>
-            <CardTitle>Email capture goes here</CardTitle>
+            <CardTitle>Join the list</CardTitle>
             <CardDescription>
-              v1 will use a simple email capture form connected to Supabase + Resend.
+              Today this stores subscribers locally. Next step is swapping the persistence/delivery layer to Supabase + Resend without changing the UI.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button>Coming soon</Button>
+            <EmailCaptureForm source="subscribe-page" buttonLabel="Subscribe" />
           </CardContent>
         </Card>
       </div>

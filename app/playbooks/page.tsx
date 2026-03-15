@@ -1,25 +1,10 @@
 import { ContentGrid } from '@/components/content-grid';
 import { PageHero } from '@/components/page-hero';
-
-const items = [
-  {
-    title: 'Local Business AI Outreach Engine',
-    description: 'A free tactical resource on sourcing leads, enrichment, outreach asset generation, and CRM tracking.',
-    meta: 'Free playbook',
-  },
-  {
-    title: 'AI Operator Stack',
-    description: 'Templates, workflows, and architecture patterns for practical automation and technical leverage.',
-    meta: 'Template pack',
-  },
-  {
-    title: 'Productized workflow kits',
-    description: 'Lead magnets that can evolve into paid products, bundles, and premium notes.',
-    meta: 'System',
-  },
-];
+import { getContentByType } from '@/lib/content/collections';
 
 export default function PlaybooksPage() {
+  const items = getContentByType('playbook');
+
   return (
     <div className="pb-16">
       <PageHero
