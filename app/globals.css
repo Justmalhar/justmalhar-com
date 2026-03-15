@@ -2,57 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --muted: 25 5.3% 44.7%;
+    --card: 0 0% 100%;
+    --border: 24 5.7% 82.9%;
+    --accent: 24 94% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --muted: 24 5% 64.9%;
+    --card: 0 0% 7%;
+    --border: 24 8% 18%;
+    --accent: 24 95% 53%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(circle at top, hsl(var(--accent) / 0.12), transparent 28%);
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-6xl px-6;
+  }
 
-body {
-  @apply bg-background text-foreground antialiased;
-  background-image: radial-gradient(circle at top, rgba(124, 58, 237, 0.12), transparent 28%);
-}
+  .reading-shell {
+    @apply mx-auto w-full max-w-3xl px-6;
+  }
 
-a {
-  @apply text-inherit no-underline;
-}
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.24em] text-muted;
+  }
 
-.container-shell {
-  @apply mx-auto w-full max-w-6xl px-6;
-}
+  .prose-friendly {
+    @apply max-w-3xl text-[17px] leading-8 text-foreground sm:text-[18px];
+  }
 
-.reading-shell {
-  @apply mx-auto w-full max-w-3xl px-6;
-}
+  .prose-friendly p {
+    @apply mb-6;
+  }
 
-.eyebrow {
-  @apply text-xs uppercase tracking-[0.24em] text-muted;
-}
+  .prose-friendly h1,
+  .prose-friendly h2,
+  .prose-friendly h3 {
+    @apply tracking-tight text-foreground;
+  }
 
-.prose-friendly {
-  @apply max-w-3xl text-[17px] leading-8 text-foreground sm:text-[18px];
-}
+  .prose-friendly h2 {
+    @apply mt-12 mb-4 text-3xl font-semibold;
+  }
 
-.prose-friendly p {
-  @apply mb-6;
-}
+  .prose-friendly h3 {
+    @apply mt-8 mb-3 text-2xl font-semibold;
+  }
 
-.prose-friendly h1,
-.prose-friendly h2,
-.prose-friendly h3 {
-  @apply tracking-tight text-foreground;
-}
-
-.prose-friendly h2 {
-  @apply mt-12 mb-4 text-3xl font-semibold;
-}
-
-.prose-friendly h3 {
-  @apply mt-8 mb-3 text-2xl font-semibold;
-}
-
-.prose-friendly ul {
-  @apply mb-6 ml-5 list-disc space-y-2 text-muted;
+  .prose-friendly ul {
+    @apply mb-6 ml-5 list-disc space-y-2 text-muted;
+  }
 }

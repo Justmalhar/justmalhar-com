@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 
 const nav = [
@@ -26,9 +27,12 @@ export function SiteHeader() {
             ))}
           </nav>
         </div>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/subscribe">Get updates</Link>
-        </Button>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Button asChild variant="outline" size="sm">
+            <Link href="/subscribe">Get updates</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );

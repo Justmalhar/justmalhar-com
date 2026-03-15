@@ -8,12 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#0b0d10',
-        foreground: '#f5f7fa',
-        muted: '#9aa4b2',
-        accent: '#7c3aed',
-        card: '#12161b',
-        border: '#1f2937'
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        muted: 'hsl(var(--muted))',
+        accent: 'hsl(var(--accent))',
+        card: 'hsl(var(--card))',
+        border: 'hsl(var(--border))'
       }
     },
   },
