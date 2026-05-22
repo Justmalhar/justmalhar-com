@@ -1,0 +1,54 @@
+---
+import PageHero from '@/components/PageHero.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { BLOG_SECTIONS, getPublishedPosts, groupPostsByYear } from '@/lib/sections';
+import { site } from '@/data/site';
+
+const posts = await getPublishedPosts();
+const byYear = groupPostsByYear(posts);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<BaseLayout
+  title={`Archive · ${site.name}`}
+  description="All posts by Malhar Ujawane, grouped by year."
+  activeNav="/archive"
+>
+  <PageHero eyebrow="Archive" title="Archive" lead="Every published post, organized by year." compact />
+
+  {
+    byYear.length > 0 ? (
+      <div class="archive reveal">
+        {byYear.map(([year, yearPosts]) => (
+          <section class="archive-year" aria-labelledby={`year-${year}`}>
+            <h2 id={`year-${year}`} class="archive-year__label">
+              {year}
+            </h2>
+            <ul class="archive-list">
+              {yearPosts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.id}`}>
+                    <span class="archive-list__title">{post.data.title}</span>
+                    <span class="archive-list__meta">
+                      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                      <span class="archive-list__dot" aria-hidden="true" />
+                      <span>{BLOG_SECTIONS[post.data.section].label}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <p class="empty-state reveal">Nothing published yet.</p>
+    )
+  }
+</BaseLayout>

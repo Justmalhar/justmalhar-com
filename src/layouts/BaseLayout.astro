@@ -1,0 +1,76 @@
+---
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteNav from '@/components/SiteNav.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+import '@/styles/global.css';
+import '@/styles/animations.css';
+import { site } from '@/data/site';
+import type { BlogSection } from '@/lib/sections';
+
+interface Props {
+  title: string;
+  description?: string;
+  activeNav?: string;
+  postSection?: BlogSection;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = site.description,
+  activeNav,
+  postSection,
+  ogType = 'website',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@justmalhar" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const dark =
+          stored === 'dark' ||
+          (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="/">{site.name}</a>
+        <SiteNav pathname={Astro.url.pathname} postSection={postSection} activeNav={activeNav} />
+        <div class="site-header__actions">
+          <SocialLinks />
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

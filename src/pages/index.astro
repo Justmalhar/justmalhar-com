@@ -1,0 +1,80 @@
+---
+import ArrowLink from '@/components/ArrowLink.astro';
+import PageHero from '@/components/PageHero.astro';
+import Portrait from '@/components/Portrait.astro';
+import PostList from '@/components/PostList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { exploreLinks, focusAreas, homeAbout, homeIntro } from '@/data/home';
+import { site } from '@/data/site';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title={site.name} description={site.description}>
+  <section class="home-hero">
+    <div class="home-hero__copy animate-hero">
+      <span class="eyebrow">{homeIntro.eyebrow}</span>
+      <h1>
+        {homeIntro.headline[0]}
+        <br />
+        {homeIntro.headline[1]}
+      </h1>
+      <p class="lead">{homeIntro.lead}</p>
+      <div class="home-hero__actions">
+        <a class="button-primary" href="/blog">Read writing</a>
+        <a class="button-secondary" href="/about">About me</a>
+      </div>
+    </div>
+    <Portrait class="home-hero__portrait animate-portrait" showCaption priority />
+  </section>
+
+  <section class="home-about reveal" aria-labelledby="about-heading">
+    <div class="home-about__grid">
+      <div class="home-about__intro">
+        <h2 id="about-heading" class="section-title">{homeAbout.title}</h2>
+        {homeAbout.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <ArrowLink href={homeAbout.cta.href} label={homeAbout.cta.label} />
+      </div>
+      <ul class="focus-grid stagger-children">
+        {
+          focusAreas.map((area) => (
+            <li>
+              <article class="focus-card">
+                <h3>{area.title}</h3>
+                <p>{area.description}</p>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="home-explore reveal" aria-labelledby="explore-heading">
+    <h2 id="explore-heading" class="section-title">Explore</h2>
+    <ul class="explore-grid">
+      {
+        exploreLinks.map((link) => (
+          <li>
+            <a class="explore-card" href={link.href}>
+              <span class="explore-card__label">{link.label}</span>
+              <span class="explore-card__desc">{link.description}</span>
+              <span class="explore-card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="home-writing reveal" aria-labelledby="writing-heading">
+    <div class="section-head">
+      <h2 id="writing-heading">Recent writing</h2>
+      <ArrowLink href="/blog" label="All writing" />
+    </div>
+    <PostList posts={posts} />
+  </section>
+</BaseLayout>

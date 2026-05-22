@@ -1,0 +1,23 @@
+---
+import { getActiveNavHref, NAV_ITEMS } from '@/lib/sections';
+import type { BlogSection } from '@/lib/sections';
+
+interface Props {
+  pathname: string;
+  postSection?: BlogSection;
+  activeNav?: string;
+}
+
+const { pathname, postSection, activeNav } = Astro.props;
+const activeHref = activeNav ?? getActiveNavHref(pathname, postSection);
+---
+
+<nav class="site-nav" aria-label="Primary">
+  {
+    NAV_ITEMS.map((item) => (
+      <a href={item.href} aria-current={activeHref === item.href ? 'page' : undefined}>
+        {item.label}
+      </a>
+    ))
+  }
+</nav>

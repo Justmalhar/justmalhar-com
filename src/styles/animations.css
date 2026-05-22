@@ -1,0 +1,194 @@
+/* Motion — respects prefers-reduced-motion */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes header-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portrait-shine {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+@keyframes subtle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header {
+    animation: header-enter 0.7s var(--ease-out) both;
+  }
+
+  .animate-hero > * {
+    animation: fade-up 0.85s var(--ease-out) both;
+  }
+
+  .animate-hero > *:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .animate-hero > *:nth-child(2) {
+    animation-delay: 0.12s;
+  }
+  .animate-hero > *:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .animate-hero > *:nth-child(4) {
+    animation-delay: 0.28s;
+  }
+
+  .animate-portrait {
+    animation: scale-in 1s var(--ease-out) 0.15s both;
+  }
+
+  .reveal {
+    animation: fade-up 0.75s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+
+  .reveal-scale {
+    animation: scale-in 0.8s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+
+  .stagger-children > * {
+    animation: fade-up 0.7s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+
+  .stagger-children > *:nth-child(2) {
+    animation-range: entry 5% cover 28%;
+  }
+  .stagger-children > *:nth-child(3) {
+    animation-range: entry 10% cover 32%;
+  }
+
+  .portrait--placeholder .portrait__frame::after {
+    animation: portrait-shine 4.5s var(--ease-out) infinite;
+  }
+
+  .focus-card {
+    transition:
+      transform 0.45s var(--ease-spring),
+      box-shadow 0.45s var(--ease-out),
+      border-color 0.35s var(--ease-out),
+      background 0.35s var(--ease-out);
+  }
+
+  .focus-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .explore-card {
+    transition:
+      transform 0.4s var(--ease-spring),
+      background 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out);
+  }
+
+  .explore-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .explore-card:hover .explore-card__arrow {
+    transform: translateX(4px);
+  }
+
+  .portrait__frame {
+    transition: transform 0.6s var(--ease-out);
+  }
+
+  .portrait:hover .portrait__frame {
+    transform: scale(1.015);
+  }
+
+  .portrait__img {
+    transition: filter 0.5s var(--ease-out);
+  }
+
+  .portrait:hover .portrait__img {
+    filter: contrast(1.05);
+  }
+
+  .archive-list li {
+    animation: fade-up 0.6s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 20%;
+  }
+
+  .setup-category {
+    animation: fade-up 0.7s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale,
+  .stagger-children > *,
+  .animate-hero > *,
+  .animate-portrait,
+  .site-header,
+  .archive-list li,
+  .setup-category,
+  .article-body {
+    animation: none;
+  }
+
+  .focus-card:hover,
+  .explore-card:hover,
+  .post-card:hover,
+  .portrait:hover .portrait__frame {
+    transform: none;
+  }
+}

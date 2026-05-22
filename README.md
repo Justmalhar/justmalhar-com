@@ -1,42 +1,55 @@
 # justmalhar.com
 
-Canonical home for:
-- public essays
-- technical/operator notes
-- email-gated lead magnets
-- paid digital products
-- future premium memberships
+Personal site and MDX blog for **Malhar Ujawane**. Minimal black-and-white design with light/dark mode, GitHub Flavored Markdown, and Mermaid diagrams.
 
-## Stack
-- Next.js App Router
-- TypeScript
-- Tailwind CSS
-- MDX via `next-mdx-remote`
-- local JSONL email capture abstraction ready to swap to Supabase + Resend
+Built with [Astro](https://astro.build).
 
-## Content model
-Content lives in git-native MDX collections:
-- `content/essays`
-- `content/notes`
-- `content/playbooks`
-- `content/products`
+## Develop
 
-Every item shares metadata for slug, access level, CTA hooks, tags, and publishing state. Dynamic pages resolve through `/p/[slug]`.
-
-## Email capture
-The MVP form posts to `app/api/subscribe/route.ts` and persists to `data/subscribers.jsonl` when `EMAIL_CAPTURE_PROVIDER=local`.
-
-Env placeholders live in `.env.example` for later Supabase/Resend wiring.
-
-## Getting started
 ```bash
 npm install
 npm run dev
-npm run build
 ```
 
-## Planning docs
-- `ARCHITECTURE.md`
-- `SCHEMA-ROUTES.md`
-- `HOMEPAGE-IA-COPY.md`
-- `MVP-BUILD-PLAN.md`
+Open [http://localhost:4321](http://localhost:4321).
+
+## Portrait (home page)
+
+Add a black-and-white photo at `public/images/portrait.jpg`. The site picks it up automatically; until then, a placeholder is shown.
+
+## Publish a post
+
+Add a file under `src/content/blog/`:
+
+```mdx
+---
+title: Post title
+description: Short summary for listings and SEO.
+pubDate: 2026-05-23
+section: essay
+draft: false
+tags:
+  - tag
+---
+
+Your content here.
+```
+
+- `section`: `essay`, `note`, or `guide` (appears in nav section pages).
+- Set `draft: true` to exclude from the site.
+- Use `.md` or `.mdx`.
+- Mermaid: fenced code block with language `mermaid`.
+- GFM (tables, task lists, strikethrough, footnotes) is enabled via `remark-gfm`.
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Deploy
+
+Static output in `dist/`. Deploy to Vercel, Netlify, Cloudflare Pages, or any static host.
+
+Set `site` in `astro.config.mjs` to your production URL for correct canonical URLs and RSS links.

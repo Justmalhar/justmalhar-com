@@ -1,0 +1,36 @@
+---
+title: Welcome
+description: A fresh start for justmalhar.com — a minimal personal site and MDX blog.
+pubDate: 2026-05-20
+section: note
+tags:
+  - meta
+---
+
+This site is rebuilt from scratch: black and white, light and dark, and written in Markdown.
+
+## What changed
+
+- Removed the old product / playbook / subscribe stack
+- Switched from Next.js to **Astro** for a faster static blog
+- Posts live in `src/content/blog/` as `.md` or `.mdx` files
+
+## Publishing a post
+
+Create a file like `src/content/blog/my-post.mdx`:
+
+```yaml
+---
+title: My post
+description: One-line summary for listings and SEO.
+pubDate: 2026-05-23
+section: essay
+draft: false
+tags:
+  - engineering
+---
+```
+
+Your content goes below the frontmatter. Set `draft: true` to hide a post from the site.
+
+Run `npm run dev` locally, then `npm run build` before deploying.

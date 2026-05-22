@@ -1,0 +1,42 @@
+---
+title: Why most AI products break after the demo
+description: Where AI products fail after the first impressive demo, and what has to exist for them to stay trustworthy in production.
+pubDate: 2026-03-15
+section: essay
+tags:
+  - ai systems
+  - reliability
+---
+
+The demo is the easiest part of an AI product.
+
+A good prompt, a cherry-picked input, and a clean UI can make almost anything feel inevitable for five minutes. The problems start the second a real user shows up with messy data, unclear intent, inconsistent timing, and no patience for the magic trick.
+
+## Demos optimize for surprise. Products optimize for trust.
+
+Teams still build as if the wow moment is the product. It is not. The product is everything required **after** the output is generated:
+
+- validation
+- retries
+- state tracking
+- permission boundaries
+- human override
+- observability
+
+If those layers are missing, what you have is a stage performance with a billing page attached.
+
+## Reliability is mostly unglamorous systems work
+
+The best AI products I have seen are rarely prompt-first. They are contract-first. Inputs are normalized. Outputs are checked. Every tool call has guardrails. Failure paths exist before success screenshots do.
+
+Once you accept that you are building software with probabilistic components, the engineering decisions get much clearer.
+
+## A simple test
+
+Before you ship, ask:
+
+1. What happens when the model is wrong?
+2. Who can see partial failures?
+3. Can an operator recover without redeploying?
+
+If you do not have crisp answers, you are still in demo mode.

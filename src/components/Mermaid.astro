@@ -1,0 +1,49 @@
+---
+---
+
+<script>
+  import mermaid from 'mermaid';
+
+  function theme() {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'neutral';
+  }
+
+  async function renderMermaid() {
+    const blocks = [...document.querySelectorAll('pre > code.language-mermaid')];
+
+    if (!blocks.length) return;
+
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: theme(),
+      securityLevel: 'strict',
+      fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+    });
+
+    for (const code of blocks) {
+      const pre = code.parentElement;
+      if (!pre || pre.dataset.mermaidDone === 'true') continue;
+
+      const source = code.textContent?.trim() ?? '';
+      if (!source) continue;
+
+      const container = document.createElement('div');
+      container.className = 'mermaid';
+      container.textContent = source;
+      pre.replaceWith(container);
+      pre.dataset.mermaidDone = 'true';
+    }
+
+    await mermaid.run({ querySelector: '.mermaid:not([data-processed])' });
+  }
+
+  renderMermaid();
+  document.addEventListener('astro:page-load', renderMermaid);
+  window.addEventListener('theme-change', () => {
+    document.querySelectorAll('.mermaid').forEach((node) => node.remove());
+    document.querySelectorAll('[data-mermaid-done]').forEach((node) => {
+      delete node.dataset.mermaidDone;
+    });
+    renderMermaid();
+  });
+</script>

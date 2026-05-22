@@ -1,0 +1,28 @@
+---
+import ArrowLink from '@/components/ArrowLink.astro';
+import PageHero from '@/components/PageHero.astro';
+import PostList from '@/components/PostList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site } from '@/data/site';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title={`All writing · ${site.name}`}
+  description="Essays, notes, and guides by Malhar Ujawane."
+  activeNav="/blog"
+>
+  <PageHero
+    eyebrow="All"
+    title="All writing"
+    lead="Essays, notes, and guides — published as Markdown, read without noise."
+    compact
+  />
+  <div class="reveal">
+    <PostList posts={posts} showReadingTime />
+  </div>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import PageHero from '@/components/PageHero.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { site } from '@/data/site';
+---
+
+<BaseLayout title={`Not found · ${site.name}`} description="Page not found.">
+  <section class="not-found reveal">
+    <PageHero eyebrow="404" title="Page not found." lead="The page you're looking for doesn't exist or has moved." compact />
+    <div class="not-found__actions">
+      <a class="button-primary" href="/">Go home</a>
+      <a class="button-secondary" href="/blog">Read writing</a>
+    </div>
+  </section>
+</BaseLayout>

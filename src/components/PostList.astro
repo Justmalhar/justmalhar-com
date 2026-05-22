@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { BLOG_SECTIONS } from '@/lib/sections';
+import { readingTime } from '@/lib/reading-time';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  showArrow?: boolean;
+  showReadingTime?: boolean;
+}
+
+const { posts, showArrow = true, showReadingTime = false } = Astro.props;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+{
+  posts.length > 0 ? (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a class="post-card" href={`/blog/${post.id}`}>
+            <div class="post-card__meta">
+              <span>{BLOG_SECTIONS[post.data.section].label}</span>
+              <span class="post-card__dot" aria-hidden="true" />
+              <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+              {showReadingTime && post.body && (
+                <>
+                  <span class="post-card__dot" aria-hidden="true" />
+                  <span>{readingTime(post.body)}</span>
+                </>
+              )}
+            </div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            {showArrow && <span class="post-card__arrow">Read</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty-state">Nothing published yet.</p>
+  )
+}
