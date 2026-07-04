@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const essays = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/essays' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -14,20 +15,20 @@ const essays = defineCollection({
 });
 
 const links = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/links' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
-    externalUrl: z.string().url(),
+    externalUrl: z.string(),
     via: z.string().optional(),
   }),
 });
 
 const notes = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/notes' }),
   schema: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
@@ -38,19 +39,19 @@ const notes = defineCollection({
 });
 
 const quotes = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/quotes' }),
   schema: z.object({
     pubDate: z.coerce.date(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     source: z.string(),
-    sourceUrl: z.string().url().optional(),
+    sourceUrl: z.string().optional(),
     author: z.string(),
   }),
 });
 
 const guides = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/guides' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
