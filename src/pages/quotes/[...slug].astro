@@ -1,0 +1,43 @@
+---
+import PostLayout from '@/layouts/PostLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('quotes');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<PostLayout
+  title={post.data.author ? `Quoting ${post.data.author}` : 'Quote'}
+  pubDate={post.data.pubDate}
+  tags={post.data.tags}
+  type="Quote"
+>
+  <blockquote>
+    <Content />
+  </blockquote>
+  <p class="attribution">
+    — {post.data.author}
+  </p>
+</PostLayout>
+
+<style>
+  blockquote {
+    border-left: 3px solid #111;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .attribution {
+    color: #666;
+    font-style: italic;
+  }
+</style>
