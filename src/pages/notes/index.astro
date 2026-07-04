@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { sortPosts } from '@/lib/utils';
+
+const posts = sortPosts(await getCollection('notes'));
+---
+
+<BaseLayout title="Notes" description="Short notes and observations by Malhar Ujawane.">
+  <h1>Notes</h1>
+  <p>Quick thoughts and observations.</p>
+  
+  <div class="post-list">
+    {posts.map(post => (
+      <PostCard post={post} />
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { sortPosts } from '@/lib/utils';
+
+const posts = sortPosts(await getCollection('quotes'));
+---
+
+<BaseLayout title="Quotes" description="Notable quotes curated by Malhar Ujawane.">
+  <h1>Quotes</h1>
+  <p>Quotes that resonated with me.</p>
+  
+  <div class="post-list">
+    {posts.map(post => (
+      <PostCard post={post} />
+    ))}
+  </div>
+</BaseLayout>

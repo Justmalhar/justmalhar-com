@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { sortPosts } from '@/lib/utils';
+
+const posts = sortPosts(await getCollection('essays'));
+---
+
+<BaseLayout title="Essays" description="Long-form essays and articles by Malhar Ujawane.">
+  <h1>Essays</h1>
+  <p>Long-form writing about technology, AI, and software engineering.</p>
+  
+  <div class="post-list">
+    {posts.map(post => (
+      <PostCard post={post} />
+    ))}
+  </div>
+</BaseLayout>
