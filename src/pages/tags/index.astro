@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getAllTags } from '@/lib/utils';
+
+const essays = await getCollection('essays');
+const links = await getCollection('links');
+const notes = await getCollection('notes');
+const quotes = await getCollection('quotes');
+const guides = await getCollection('guides');
+
+const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+const tags = getAllTags(allPosts);
+
+const tagCounts = tags.map(tag => {
+  const count = allPosts.filter(post =>
+    !post.data.draft && post.data.tags.includes(tag)
+  ).length;
+  return { tag, count };
+});
+---
+
+<BaseLayout title="Tags" description="Browse all tags on Malhar Ujawane's blog.">
+  <h1>Tags</h1>
+
+  <div class="tag-cloud">
+    {tagCounts.map(({ tag, count }) => (
+      <a href={`/tags/${tag}`} class="tag-item">
+        <span class="tag-name">#{tag}</span>
+        <span class="tag-count">({count})</span>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .tag-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .tag-item:hover {
+    background: #f3f4f6;
+  }
+
+  .tag-name {
+    color: #111;
+  }
+
+  .tag-count {
+    color: #666;
+    font-size: 0.875rem;
+  }
+</style>

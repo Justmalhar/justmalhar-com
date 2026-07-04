@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostCard from '@/components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { getPostsByTag } from '@/lib/utils';
+
+export async function getStaticPaths() {
+  const essays = await getCollection('essays');
+  const links = await getCollection('links');
+  const notes = await getCollection('notes');
+  const quotes = await getCollection('quotes');
+  const guides = await getCollection('guides');
+
+  const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+  const allTags = new Set(allPosts.flatMap(post => post.data.tags));
+
+  return Array.from(allTags).map(tag => ({
+    params: { tag },
+    props: { tag, posts: getPostsByTag(allPosts, tag) },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag}`} description={`Posts tagged with #${tag}`}>
+  <h1>#{tag}</h1>
+  <p>{posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged with #{tag}</p>
+
+  <div class="post-list">
+    {posts.map(post => (
+      <PostCard post={post} />
+    ))}
+  </div>
+</BaseLayout>
