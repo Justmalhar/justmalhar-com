@@ -39,8 +39,7 @@ export function getAllTags(posts: BlogPost[]): string[] {
 }
 
 export function getPostUrl(post: BlogPost): string {
-  const slug = post.slug || post.id;
-  return `/${post.collection}/${slug}/`;
+  return `/${post.collection}/${post.id}/`;
 }
 
 export function truncate(str: string, length: number): string {

@@ -11,6 +11,11 @@ interface Props {
 const { post } = Astro.props;
 const url = getPostUrl(post);
 const collectionLabel = post.collection.charAt(0).toUpperCase() + post.collection.slice(1);
+const postData = post.data as Record<string, unknown>;
+const hasTitle = typeof postData.title === 'string';
+const hasDescription = typeof postData.description === 'string';
+const hasVia = typeof postData.via === 'string';
+const hasAuthor = typeof postData.author === 'string';
 ---
 
 <article class="post-card">
@@ -21,29 +26,29 @@ const collectionLabel = post.collection.charAt(0).toUpperCase() + post.collectio
     </time>
   </div>
   
-  {post.data.title ? (
+  {hasTitle ? (
     <h3 class="post-title">
-      <a href={url}>{post.data.title}</a>
+      <a href={url}>{postData.title as string}</a>
     </h3>
   ) : null}
   
   {post.collection === 'quotes' ? (
     <blockquote class="post-quote">
       <p>{post.body?.slice(0, 200)}...</p>
-      <cite>— {post.data.author}</cite>
+      <cite>— {hasAuthor ? postData.author : ''}</cite>
     </blockquote>
   ) : post.collection === 'links' ? (
     <div class="post-link">
-      <a href={post.data.externalUrl} target="_blank" rel="noopener">
-        {post.data.title || post.data.externalUrl}
+      <a href={postData.externalUrl as string} target="_blank" rel="noopener">
+        {hasTitle ? postData.title : postData.externalUrl}
       </a>
-      {post.data.via && (
-        <span class="post-via">via {post.data.via}</span>
+      {hasVia && (
+        <span class="post-via">via {postData.via}</span>
       )}
     </div>
-  ) : (
-    <p class="post-excerpt">{post.data.description}</p>
-  )}
+  ) : hasDescription ? (
+    <p class="post-excerpt">{postData.description as string}</p>
+  ) : null}
   
   {post.data.tags.length > 0 && (
     <div class="post-tags">
