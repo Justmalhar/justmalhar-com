@@ -1,25 +1,12 @@
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import remarkGfm from 'remark-gfm';
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://justmalhar.com',
-  integrations: [
-    mdx({
-      remarkPlugins: [remarkGfm],
-    }),
-    sitemap(),
-  ],
+  integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkGfm],
     shikiConfig: {
-      theme: 'github-light',
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-      wrap: true,
-    },
-  },
+      theme: 'github-dark'
+    }
+  }
 });

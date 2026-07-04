@@ -1,8 +1,0 @@
----
-import SectionPage from '@/components/SectionPage.astro';
-import { getPostsBySection } from '@/lib/sections';
-
-const posts = await getPostsBySection('essay');
----
-
-<SectionPage section="essay" posts={posts} />

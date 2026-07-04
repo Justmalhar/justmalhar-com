@@ -1,55 +1,46 @@
-# justmalhar.com
+# Astro Starter Kit: Basics
 
-Personal site and MDX blog for **Malhar Ujawane**. Minimal black-and-white design with light/dark mode, GitHub Flavored Markdown, and Mermaid diagrams.
-
-Built with [Astro](https://astro.build).
-
-## Develop
-
-```bash
-npm install
-npm run dev
+```sh
+npm create astro@latest -- --template basics
 ```
 
-Open [http://localhost:4321](http://localhost:4321).
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Portrait (home page)
+## 🚀 Project Structure
 
-Add a black-and-white photo at `public/images/portrait.jpg`. The site picks it up automatically; until then, a placeholder is shown.
+Inside of your Astro project, you'll see the following folders and files:
 
-## Publish a post
-
-Add a file under `src/content/blog/`:
-
-```mdx
----
-title: Post title
-description: Short summary for listings and SEO.
-pubDate: 2026-05-23
-section: essay
-draft: false
-tags:
-  - tag
----
-
-Your content here.
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets
+│   │   └── astro.svg
+│   ├── components
+│   │   └── Welcome.astro
+│   ├── layouts
+│   │   └── Layout.astro
+│   └── pages
+│       └── index.astro
+└── package.json
 ```
 
-- `section`: `essay`, `note`, or `guide` (appears in nav section pages).
-- Set `draft: true` to exclude from the site.
-- Use `.md` or `.mdx`.
-- Mermaid: fenced code block with language `mermaid`.
-- GFM (tables, task lists, strikethrough, footnotes) is enabled via `remark-gfm`.
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
-## Build
+## 🧞 Commands
 
-```bash
-npm run build
-npm run preview
-```
+All commands are run from the root of the project, from a terminal:
 
-## Deploy
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-Static output in `dist/`. Deploy to Vercel, Netlify, Cloudflare Pages, or any static host.
+## 👀 Want to learn more?
 
-Set `site` in `astro.config.mjs` to your production URL for correct canonical URLs and RSS links.
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
