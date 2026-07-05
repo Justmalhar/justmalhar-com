@@ -17,9 +17,9 @@ export const NAV_ITEMS = [
   { label: "Essays", href: "/essays" },
   { label: "Links", href: "/links" },
   { label: "Quotes", href: "/quotes" },
-  { label: "Work", href: "/work" },
   { label: "Papers", href: "/papers" },
+  { label: "Work", href: "/work" },
   { label: "Setup", href: "/setup" },
-  { label: "Tags", href: "/tags" },
   { label: "About", href: "/about" },
+  { label: "Tags", href: "/tags" },
 ] as const;
