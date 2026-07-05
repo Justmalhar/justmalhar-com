@@ -5,13 +5,13 @@ import { getCollection } from 'astro:content';
 import { getPostsByTag } from '@/lib/utils';
 
 export async function getStaticPaths() {
-  const essays = await getCollection('essays');
+  const blog = await getCollection('blog');
   const links = await getCollection('links');
   const notes = await getCollection('notes');
   const quotes = await getCollection('quotes');
   const guides = await getCollection('guides');
 
-  const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+  const allPosts = [...blog, ...links, ...notes, ...quotes, ...guides];
   const allTags = new Set(allPosts.flatMap(post => post.data.tags));
 
   return Array.from(allTags).map(tag => ({
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 const { tag, posts } = Astro.props;
 ---
 
-<BaseLayout title={`#${tag}`} description={`Posts tagged with #${tag}`}>
+<BaseLayout title={`#${tag}`} description={`Posts tagged with #${tag}`} breadcrumb="Tags">
   <div class="max-w-content">
     <h1 class="text-display text-apple-gray-900 mb-2">#{tag}</h1>
     <p class="text-body text-apple-gray-400 mb-12">{posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged</p>

@@ -34,8 +34,10 @@ export default {
         'caption': ['0.8125rem', { lineHeight: '1.38462', letterSpacing: '0' }],
       },
       maxWidth: {
-        'content': '680px',
-        'page': '980px',
+        'content': '720px',
+        'page': '100%',
+        'sidebar-left': '272px',
+        'sidebar-right': '272px',
       },
       boxShadow: {
         'apple-sm': '0 1px 3px rgba(0,0,0,0.06)',

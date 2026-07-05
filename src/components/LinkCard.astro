@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPlainTextExcerpt, getPostUrl } from '@/lib/utils';
+
+interface Props {
+  post: CollectionEntry<'links'>;
+  ogImage?: string;
+}
+
+const { post, ogImage } = Astro.props;
+const url = getPostUrl(post);
+const excerpt = getPlainTextExcerpt(post.body, 200);
+---
+
+<article class="group w-full min-w-0 h-full flex flex-col">
+  <a
+    href={url}
+    class="block mb-3 w-full rounded-2xl overflow-hidden ring-1 ring-apple-gray-100 bg-apple-gray-50 aspect-[1.91/1]"
+  >
+    {ogImage ? (
+      <img
+        src={ogImage}
+        alt=""
+        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-apple-orange/10 to-apple-gray-100">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-apple-gray-300"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </div>
+    )}
+  </a>
+
+  <h3 class="text-[17px] font-semibold text-apple-gray-900 leading-snug mb-1.5">
+    <a href={url} class="hover:text-apple-orange transition-colors">
+      {post.data.title}
+    </a>
+  </h3>
+
+  <p class="text-[14px] text-apple-gray-500 leading-relaxed mb-1.5 line-clamp-2">
+    {post.data.description}
+  </p>
+
+  {excerpt && (
+    <p class="text-[13px] text-apple-gray-400 leading-relaxed line-clamp-2 mb-2.5">
+      {excerpt}
+    </p>
+  )}
+
+  {post.data.tags.length > 0 && (
+    <div class="flex flex-wrap gap-1.5 mt-auto pt-1">
+      {post.data.tags.map(tag => (
+        <a href={`/tags/${tag}`} class="text-[12px] text-apple-gray-400 bg-apple-gray-50 px-2 py-0.5 rounded-md hover:text-apple-gray-700 hover:bg-apple-gray-100 transition-colors">
+          #{tag}
+        </a>
+      ))}
+    </div>
+  )}
+</article>

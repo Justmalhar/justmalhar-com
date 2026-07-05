@@ -3,7 +3,7 @@ import { SITE } from '@/lib/constants';
 import { sortPosts, getPostUrl } from '@/lib/utils';
 import type { APIContext } from 'astro';
 
-type Post = CollectionEntry<'essays'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
+type Post = CollectionEntry<'blog'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
 
 function getPostTitle(post: Post): string {
   if ('title' in post.data && typeof post.data.title === 'string') {
@@ -30,13 +30,13 @@ function getPostUpdatedDate(post: Post): Date {
 }
 
 export async function GET(_context: APIContext) {
-  const essays = await getCollection('essays');
+  const blog = await getCollection('blog');
   const links = await getCollection('links');
   const notes = await getCollection('notes');
   const quotes = await getCollection('quotes');
   const guides = await getCollection('guides');
 
-  const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+  const allPosts = [...blog, ...links, ...notes, ...quotes, ...guides];
   const sortedPosts = sortPosts(allPosts);
 
   const items = sortedPosts.map((post) => `

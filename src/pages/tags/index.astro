@@ -3,13 +3,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '@/lib/utils';
 
-const essays = await getCollection('essays');
+const blog = await getCollection('blog');
 const links = await getCollection('links');
 const notes = await getCollection('notes');
 const quotes = await getCollection('quotes');
 const guides = await getCollection('guides');
 
-const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+const allPosts = [...blog, ...links, ...notes, ...quotes, ...guides];
 const tags = getAllTags(allPosts);
 
 const tagCounts = tags.map(tag => {
@@ -20,7 +20,7 @@ const tagCounts = tags.map(tag => {
 });
 ---
 
-<BaseLayout title="Tags" description="Browse all tags on Malhar Ujawane's blog.">
+<BaseLayout title="Tags" description="Browse all tags on Malhar Ujawane's blog." breadcrumb="Tags">
   <div class="max-w-content">
     <h1 class="text-display text-apple-gray-900 mb-4">Tags</h1>
     <p class="text-subhead text-apple-gray-500 mb-12">Browse posts by topic.</p>

@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 
-type BlogPost = CollectionEntry<'essays'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
+type BlogPost = CollectionEntry<'blog'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
 
 export function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
@@ -38,11 +38,56 @@ export function getAllTags(posts: BlogPost[]): string[] {
   return Array.from(tags).sort();
 }
 
+const COLLECTION_URL_SEGMENTS: Partial<Record<BlogPost['collection'], string>> = {
+  links: 'inspiration',
+};
+
+const COLLECTION_LABELS: Partial<Record<BlogPost['collection'], string>> = {
+  links: 'Inspiration',
+};
+
+const COLLECTION_ICONS: Partial<Record<BlogPost['collection'], string>> = {
+  links: 'inspiration',
+};
+
 export function getPostUrl(post: BlogPost): string {
-  return `/${post.collection}/${post.id}/`;
+  const segment = COLLECTION_URL_SEGMENTS[post.collection] ?? post.collection;
+  return `/${segment}/${post.id}/`;
+}
+
+export function getCollectionLabel(collection: BlogPost['collection']): string {
+  return COLLECTION_LABELS[collection] ?? collection.charAt(0).toUpperCase() + collection.slice(1);
+}
+
+export function getCollectionIcon(collection: BlogPost['collection']): string {
+  return COLLECTION_ICONS[collection] ?? collection;
+}
+
+export function getPopularTags(posts: BlogPost[], limit = 5): { tag: string; count: number }[] {
+  return getAllTags(posts)
+    .map(tag => ({
+      tag,
+      count: posts.filter(p => !p.data.draft && p.data.tags.includes(tag)).length,
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
 }
 
 export function truncate(str: string, length: number): string {
   if (str.length <= length) return str;
   return str.slice(0, length).trimEnd() + '...';
+}
+
+export function getPlainTextExcerpt(body: string | undefined, maxLength = 220): string {
+  if (!body) return '';
+
+  const text = body
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/[*_`~>-]/g, '')
+    .replace(/\n+/g, ' ')
+    .trim();
+
+  return truncate(text, maxLength);
 }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 32" fill="none" role="img" aria-label="Community4All">
+  <circle cx="12" cy="12" r="4" fill="#FF5A1F"/>
+  <circle cx="22" cy="12" r="4" fill="#FF5A1F" opacity="0.7"/>
+  <circle cx="17" cy="22" r="4" fill="#FF5A1F" opacity="0.5"/>
+  <text x="32" y="21" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="13" font-weight="600" fill="#1d1d1f">Community4All</text>
+</svg>

@@ -7,7 +7,7 @@ import { sortPosts } from '@/lib/utils';
 const posts = sortPosts(await getCollection('quotes'));
 ---
 
-<BaseLayout title="Quotes" description="Notable quotes curated by Malhar Ujawane.">
+<BaseLayout title="Quotes" description="Notable quotes curated by Malhar Ujawane." breadcrumb="Quotes">
   <div class="max-w-content">
     <h1 class="text-display text-apple-gray-900 mb-4">Quotes</h1>
     <p class="text-subhead text-apple-gray-500 mb-12">Quotes that resonated with me.</p>

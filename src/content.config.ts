@@ -2,8 +2,8 @@ import { defineCollection } from 'astro:content';
 import { z } from 'zod';
 import { glob } from 'astro/loaders';
 
-const essays = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/essays' }),
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -24,6 +24,7 @@ const links = defineCollection({
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     externalUrl: z.string(),
+    ogImage: z.string().optional(),
     via: z.string().optional(),
   }),
 });
@@ -76,4 +77,4 @@ const setup = defineCollection({
   }),
 });
 
-export const collections = { essays, links, notes, quotes, guides, setup };
+export const collections = { blog, links, notes, quotes, guides, setup };

@@ -1,12 +1,79 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface Paper {
+  title: string;
+  abstract: string;
+  keywords: string[];
+  pdfUrl: string;
+  journalUrl: string;
+}
+
+const papers: Paper[] = [
+  {
+    title: 'Review on Parallel Approach for Lossless File Compression on CPU using OpenMP',
+    abstract: 'High performance computing (HPC) has proved to be a colossal computation resource for data intensive applications that require parallel processing for expeditious data analysis. In this paper, we analyze a parallel programming model using OpenMP for file compression. The intent of the paper is to explore literature on the subject and to provide a high level view of the features presented in the programming model, thus assisting lossless file compression.',
+    keywords: ['OpenMP', 'LZW', 'Lossless Compression', 'HPC'],
+    pdfUrl: 'https://github.com/Justmalhar/Publications/blob/master/IJCST-V4I6P24.pdf',
+    journalUrl: 'https://www.ijcstjournal.org/volume-4/issue-6/IJCST-V4I6P24.pdf'
+  },
+  {
+    title: 'FAST JPEG Encoding Using OpenMP',
+    abstract: 'Multi-core programming has given rise to advanced implementations in computing. Increasing number of compression algorithms are being remodelled to utilize the multi-core computational power available at hand. In JPEG (Joint Photographic Experts Group) compression, DCT is a computationally intensive function which bottlenecks the performance of the algorithm. This paper presents a fast solution for DCT with the help of parallel programming, using OpenMP for the implementation on a multi-core CPU. The results indicate that in the parallel implementation exhibits considerable speedup as compared to the serial implementation.',
+    keywords: ['JPEG', 'DCT', 'image compression', 'OpenMP', 'parallel programming', 'multi-core processor'],
+    pdfUrl: 'https://github.com/Justmalhar/Publications/blob/master/IJCST-V5I2P22.pdf',
+    journalUrl: 'https://www.ijcstjournal.org/volume-5/issue-2/IJCST-V5I2P22.pdf'
+  }
+];
 ---
 
-<BaseLayout title="Papers" description="Academic publications by Malhar Ujawane.">
+<BaseLayout title="Papers" description="Academic publications by Malhar Ujawane." breadcrumb="Papers">
   <div class="max-w-content">
     <h1 class="text-display text-apple-gray-900 mb-4">Papers</h1>
     <p class="text-subhead text-apple-gray-500 mb-12">Academic publications and research.</p>
 
-    <p class="text-body text-apple-gray-400">Coming soon.</p>
+    <div class="space-y-14">
+      {papers.map((paper, i) => (
+        <article>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-apple-orange/10 text-[13px] font-semibold text-apple-orange">{i + 1}</span>
+            <span class="text-[13px] text-apple-gray-400">Research Paper</span>
+          </div>
+          <h2 class="text-[19px] font-semibold text-apple-gray-900 leading-snug mb-4">{paper.title}</h2>
+
+          <div class="border-l-[3px] border-apple-gray-200 pl-4 mb-4">
+            <p class="text-[13px] font-semibold text-apple-gray-400 uppercase tracking-wider mb-1">Abstract</p>
+            <p class="text-[15px] text-apple-gray-600 leading-relaxed">{paper.abstract}</p>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            {paper.keywords.map(kw => (
+              <span class="inline-block px-2.5 py-1 bg-apple-gray-100 text-[13px] text-apple-gray-600 rounded-full">{kw}</span>
+            ))}
+          </div>
+
+          <div class="flex items-center gap-4 text-[14px]">
+            <a
+              href={paper.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-apple-orange hover:text-apple-orange/70 transition-colors font-medium"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v4a2 2 0 002 2h4"/></svg>
+              PDF
+            </a>
+            <a
+              href={paper.journalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-apple-gray-500 hover:text-apple-gray-700 transition-colors"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Journal URL
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 </BaseLayout>

@@ -1,66 +1,117 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { formatDate, getPostUrl } from '@/lib/utils';
+import NavIcon from '@/components/NavIcon.astro';
+import { formatDateShort, getCollectionIcon, getCollectionLabel, getPlainTextExcerpt, getPostUrl, truncate } from '@/lib/utils';
 
-type Post = CollectionEntry<'essays'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
+type Post = CollectionEntry<'blog'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>;
 
 interface Props {
   post: Post;
+  variant?: 'list' | 'card';
+  showType?: boolean;
 }
 
-const { post } = Astro.props;
+const { post, variant = 'list', showType = true } = Astro.props;
 const url = getPostUrl(post);
-const collectionLabel = post.collection.charAt(0).toUpperCase() + post.collection.slice(1);
+const collectionLabel = getCollectionLabel(post.collection);
+const collectionIcon = getCollectionIcon(post.collection);
 const postData = post.data as Record<string, unknown>;
 const hasTitle = typeof postData.title === 'string';
 const hasDescription = typeof postData.description === 'string';
 const hasVia = typeof postData.via === 'string';
 const hasAuthor = typeof postData.author === 'string';
+const heroImage = typeof postData.heroImage === 'string' ? postData.heroImage : undefined;
+
+const readTime = hasDescription
+  ? Math.max(1, Math.ceil((postData.description as string).split(/\s+/).length / 200))
+  : 3;
 ---
 
-<article class="group py-6 first:pt-0 last:pb-0">
-  <div class="flex items-center gap-2 mb-2">
-    <span class="w-1.5 h-1.5 rounded-full bg-apple-orange" />
-    <span class="text-[13px] font-medium text-apple-orange tracking-[-0.01em]">{collectionLabel}</span>
-    <span class="text-apple-gray-300">·</span>
-    <time datetime={post.data.pubDate.toISOString()} class="text-[13px] text-apple-gray-400">
-      {formatDate(post.data.pubDate)}
-    </time>
-  </div>
-  
-  {hasTitle ? (
-    <h3 class="text-[17px] font-semibold text-apple-gray-900 leading-snug mb-1">
-      <a href={url} class="hover:text-apple-orange transition-colors">
-        {postData.title as string}
-      </a>
-    </h3>
-  ) : null}
-  
-  {post.collection === 'quotes' ? (
-    <blockquote class="text-body text-apple-gray-500 italic leading-relaxed">
-      <p>"{post.body?.slice(0, 200)}..."</p>
-      <cite class="text-[15px] text-apple-gray-400 not-italic">— {hasAuthor ? postData.author : ''}</cite>
-    </blockquote>
-  ) : post.collection === 'links' ? (
-    <div class="text-body text-apple-gray-500">
-      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-apple-orange hover:underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80">
-        {hasTitle ? postData.title : postData.externalUrl} ↗
-      </a>
-      {hasVia && (
-        <span class="text-[13px] text-apple-gray-400 ml-2">via {postData.via}</span>
-      )}
-    </div>
-  ) : hasDescription ? (
-    <p class="text-body text-apple-gray-500 leading-relaxed">{postData.description as string}</p>
-  ) : null}
-  
-  {post.data.tags.length > 0 && (
-    <div class="flex flex-wrap gap-1.5 mt-3">
-      {post.data.tags.map(tag => (
-        <a href={`/tags/${tag}`} class="text-[12px] text-apple-gray-400 bg-apple-gray-50 px-2 py-0.5 rounded-md hover:text-apple-gray-700 hover:bg-apple-gray-100 transition-colors">
-          #{tag}
+{variant === 'card' ? (
+  <article class="group py-5 first:pt-0">
+    <a href={url} class="flex gap-4 items-start">
+      <div class="shrink-0 w-[120px] h-[80px] sm:w-[140px] sm:h-[90px] rounded-xl overflow-hidden bg-apple-gray-50 ring-1 ring-apple-gray-100">
+        {heroImage ? (
+          <img src={heroImage} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+        ) : (
+          <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-apple-orange/10 to-apple-gray-100">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-apple-gray-300"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        )}
+      </div>
+      <div class="flex-1 min-w-0 pt-0.5">
+        <h3 class="text-[16px] font-semibold text-apple-gray-900 leading-snug mb-1.5 group-hover:text-apple-orange transition-colors line-clamp-2">
+          {hasTitle ? postData.title : collectionLabel}
+        </h3>
+        {hasDescription && (
+          <p class="text-[14px] text-apple-gray-500 leading-relaxed line-clamp-2 mb-2">
+            {truncate(postData.description as string, 120)}
+          </p>
+        )}
+        <p class="text-[12px] text-apple-gray-400">
+          {formatDateShort(post.data.pubDate)} · {readTime} min
+        </p>
+      </div>
+    </a>
+  </article>
+) : (
+  <article class="group py-6 first:pt-0 last:pb-0">
+    {showType && (
+      <div class="flex items-center gap-2 mb-2">
+        <NavIcon name={collectionIcon} class="text-apple-orange" />
+        <span class="text-[13px] font-medium text-apple-orange tracking-[-0.01em]">{collectionLabel}</span>
+        <span class="text-apple-gray-300">·</span>
+        <time datetime={post.data.pubDate.toISOString()} class="text-[13px] text-apple-gray-400">
+          {formatDateShort(post.data.pubDate)}
+        </time>
+      </div>
+    )}
+
+    {!showType && (
+      <time datetime={post.data.pubDate.toISOString()} class="text-[13px] text-apple-gray-400 mb-2 block">
+        {formatDateShort(post.data.pubDate)}
+      </time>
+    )}
+
+    {hasTitle ? (
+      <h3 class="text-[17px] font-semibold text-apple-gray-900 leading-snug mb-1">
+        <a href={url} class="hover:text-apple-orange transition-colors">
+          {postData.title as string}
         </a>
-      ))}
-    </div>
-  )}
-</article>
+      </h3>
+    ) : null}
+
+    {post.collection === 'quotes' ? (
+      <blockquote class="text-body text-apple-gray-500 italic leading-relaxed">
+        <p>"{post.body?.slice(0, 200)}..."</p>
+        <cite class="text-[15px] text-apple-gray-400 not-italic">— {hasAuthor ? postData.author : ''}</cite>
+      </blockquote>
+    ) : post.collection === 'links' ? (
+      <div class="text-body text-apple-gray-500">
+        {hasDescription && (
+          <p class="leading-relaxed mb-1">{postData.description as string}</p>
+        )}
+        {post.body && (
+          <p class="text-[15px] text-apple-gray-400 leading-relaxed line-clamp-2">
+            {getPlainTextExcerpt(post.body, 160)}
+          </p>
+        )}
+        {hasVia && (
+          <span class="text-[13px] text-apple-gray-400 mt-1 block">via {postData.via}</span>
+        )}
+      </div>
+    ) : hasDescription ? (
+      <p class="text-body text-apple-gray-500 leading-relaxed">{postData.description as string}</p>
+    ) : null}
+
+    {post.data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 mt-3">
+        {post.data.tags.map(tag => (
+          <a href={`/tags/${tag}`} class="text-[12px] text-apple-gray-400 bg-apple-gray-50 px-2 py-0.5 rounded-md hover:text-apple-gray-700 hover:bg-apple-gray-100 transition-colors">
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
+  </article>
+)}

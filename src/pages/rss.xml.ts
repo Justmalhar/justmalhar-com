@@ -5,7 +5,7 @@ import { sortPosts, getPostUrl } from '@/lib/utils';
 import type { APIContext } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 
-function getPostTitle(post: CollectionEntry<'essays'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>): string {
+function getPostTitle(post: CollectionEntry<'blog'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>): string {
   if ('title' in post.data && typeof post.data.title === 'string') {
     return post.data.title;
   }
@@ -15,7 +15,7 @@ function getPostTitle(post: CollectionEntry<'essays'> | CollectionEntry<'links'>
   return 'Untitled';
 }
 
-function getPostDescription(post: CollectionEntry<'essays'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>): string {
+function getPostDescription(post: CollectionEntry<'blog'> | CollectionEntry<'links'> | CollectionEntry<'notes'> | CollectionEntry<'quotes'> | CollectionEntry<'guides'>): string {
   if ('description' in post.data && typeof post.data.description === 'string') {
     return post.data.description;
   }
@@ -23,13 +23,13 @@ function getPostDescription(post: CollectionEntry<'essays'> | CollectionEntry<'l
 }
 
 export async function GET(context: APIContext) {
-  const essays = await getCollection('essays');
+  const blog = await getCollection('blog');
   const links = await getCollection('links');
   const notes = await getCollection('notes');
   const quotes = await getCollection('quotes');
   const guides = await getCollection('guides');
 
-  const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
+  const allPosts = [...blog, ...links, ...notes, ...quotes, ...guides];
   const sortedPosts = sortPosts(allPosts);
 
   return rss({

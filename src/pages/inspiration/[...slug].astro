@@ -1,0 +1,48 @@
+---
+import PostLayout from '@/layouts/PostLayout.astro';
+import { fetchOgImage } from '@/lib/og-image';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('links');
+
+  return Promise.all(
+    posts.map(async (post) => ({
+      params: { slug: post.id },
+      props: {
+        post,
+        ogImage: post.data.ogImage ?? (await fetchOgImage(post.data.externalUrl)),
+      },
+    }))
+  );
+}
+
+const { post, ogImage } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title || 'Link'}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  tags={post.data.tags}
+  type="Inspiration"
+  heroImage={ogImage}
+>
+  <Content />
+
+  <div class="flex flex-wrap items-center gap-3 mt-8">
+    <a
+      href={post.data.externalUrl}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 px-4 py-2 bg-apple-orange text-white text-[15px] font-medium rounded-xl hover:brightness-110 transition-all"
+    >
+      Visit {post.data.title}
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+    </a>
+    {post.data.via && (
+      <span class="text-[14px] text-apple-gray-400">via {post.data.via}</span>
+    )}
+  </div>
+</PostLayout>

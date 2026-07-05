@@ -1,0 +1,57 @@
+---
+import { SITE } from '@/lib/constants';
+---
+
+<aside class="sidebar-right w-[272px] shrink-0 flex flex-col h-screen sticky top-0 overflow-y-auto bg-apple-gray-50/50 px-6">
+  <div class="pt-8 pb-6">
+    <div class="rounded-xl border border-apple-gray-100 bg-white p-5">
+      <h3 class="text-[15px] font-semibold text-apple-gray-900 leading-snug">
+        Get updates in your inbox
+      </h3>
+      <form class="mt-4 space-y-3" action="#" method="POST">
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          class="w-full px-3.5 py-2.5 bg-apple-gray-50 border border-apple-gray-100 rounded-lg text-[14px] text-apple-gray-900 placeholder-apple-gray-400 focus:outline-none focus:ring-2 focus:ring-apple-orange/30 focus:border-apple-orange transition-all"
+        />
+        <button
+          type="submit"
+          class="w-full px-4 py-2.5 bg-apple-orange text-white rounded-lg text-[14px] font-medium hover:brightness-110 transition-all active:scale-[0.98]"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="pb-6">
+    <div class="rounded-xl border border-apple-gray-100 bg-white p-5 relative overflow-hidden">
+      <p class="text-[14px] text-apple-gray-500 leading-relaxed italic">
+        Words that don't need headlines — just a moment of reflection.
+      </p>
+      <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-apple-orange/40 via-apple-orange to-apple-orange/40" />
+    </div>
+  </div>
+
+  <div class="mt-auto pb-8">
+    <p class="text-[12px] text-apple-gray-400 leading-relaxed mb-4">
+      &copy; {new Date().getFullYear()} {SITE.author}. Built with <a href="https://astro.build" class="text-apple-gray-500 hover:text-apple-orange transition-colors">Astro</a>.
+    </p>
+    <div class="flex items-center justify-center gap-1">
+      <a href={SITE.social.twitter} target="_blank" rel="noopener" class="p-2 rounded-lg text-apple-orange hover:text-apple-orange/70 hover:bg-white transition-all" aria-label="Twitter / X">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg>
+      </a>
+      <a href={SITE.social.github} target="_blank" rel="noopener" class="p-2 rounded-lg text-apple-orange hover:text-apple-orange/70 hover:bg-white transition-all" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href={SITE.social.linkedin} target="_blank" rel="noopener" class="p-2 rounded-lg text-apple-orange hover:text-apple-orange/70 hover:bg-white transition-all" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href={SITE.social.instagram} target="_blank" rel="noopener" class="p-2 rounded-lg text-apple-orange hover:text-apple-orange/70 hover:bg-white transition-all" aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</aside>

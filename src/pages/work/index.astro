@@ -6,58 +6,163 @@ interface Experience {
   company: string;
   url: string;
   period: string;
-  description: string;
+  location: string;
+  year: string;
+  logos: { src: string; alt: string; srcset?: string; width?: number; height?: number }[];
+  highlights: string[];
 }
 
 const experience: Experience[] = [
   {
-    role: 'AI Solutions and Delivery Lead',
+    role: 'AI Solutions & Delivery Lead',
     company: 'Mobiiworld',
     url: 'https://mobiiworld.com',
-    period: 'Present',
-    description: 'Leading AI solution architecture and delivery.'
+    period: 'Jan 2025 — Present',
+    location: 'Surat, India',
+    year: 'Now',
+    logos: [{ src: '/logos/work/mobiiworld.png', srcset: '/logos/work/mobiiworld@2x.png 2x', alt: 'Mobiiworld', width: 81, height: 24 }],
+    highlights: [
+      'Architected and deployed Mobii AI — an internal AI platform built on Next.js (AWS), Qdrant vector DB (via Tailscale), and Ollama (Mac Mini M4) — integrating OpenAI, Claude, and open-source LLMs for cross-team productivity.',
+      'Built full-stack AI-powered solutions for enterprise clients including Dubai Police, RTA, Global Village, Parkin, and ADAI (MENA art platform), spanning conversational AI, smart tagging (BLIP/CLIP), and visual similarity search.',
+      'Developed ADAI platform\'s three production modules: UC1 (CLIP visual search), UC2 (smart tagging via BLIP/CLIP), UC3 (conversational AI curator) — using Azure OpenAI embeddings, PostgreSQL with pgvector, and Azure Blob Storage.',
+      'Designed and implemented n8n-based workflow automation pipelines for client intake, Monday.com/Jira integration, Microsoft 365 shared mailbox processing, and Google Analytics GA4 AI-insights using Claude API.',
+      'Built Node.js middleware (Webflow-to-Salesforce) deployed on Azure; delivered Figma-to-code conversions using GSAP ScrollTrigger, parallax, and sticky z-index stacking for high-fidelity frontend implementations.',
+      'Led AI agent demo strategy — designed 20 production-ready agents across Engineering, Product, and Business domains using UAE/Dubai context; presented to leadership for organizational AI adoption roadmap.',
+      'Established AI security guidelines covering Azure Key Vault, AWS Secrets Manager, and .claudeignore for Claude Code; authored open-source GitHub strategy across 7 strategic repos (mena-ai-stack, gov-ai-compliance-kit, n8n-ai-workflows, drupal-ai-toolkit).',
+      'Mentored development teams on AI tooling (Claude, Gemini, Copilot), enforced code review standards, and drove adoption of agentic architectures across Engineering and Delivery functions.',
+      'Presented parking prediction AI (ARIMA to XGBoost, significant accuracy gains) to client stakeholders; contributed to Mobii Academy LMS architecture decisions and RAG infrastructure planning.',
+    ]
+  },
+  {
+    role: 'Founder',
+    company: 'rSearch.app',
+    url: 'https://rsearch.app',
+    period: '2024 — Present',
+    location: 'Surat, India',
+    year: '2024',
+    logos: [{ src: '/logos/work/rsearch.svg', alt: 'rSearch' }],
+    highlights: [
+      'Founded rSearch.app — a free, open-source AI reasoning search engine with 8 search modes (Web, Images, Video, News, Places, Shopping, Scholar, Patents), built as an alternative to Perplexity AI with no usage limits or subscription fees.',
+      'Architected full-stack platform on Next.js and TypeScript; integrated DeepSeek R1 as the core reasoning model alongside OpenAI and OpenRouter backends with configurable model switching and Chain-of-Thought reasoning on search results.',
+      'Built a multi-step query pipeline: query refinement → real-time internet search via Serper.dev API → advanced reasoning synthesis → cited, structured response — delivering research-grade answers at zero cost to users.',
+      'Open-sourced on GitHub (github.com/Justmalhar/rsearch) with one-click Vercel deployment; features Deep Research mode, AI Image Generator, and Chat interface serving a growing global user base.',
+    ]
   },
   {
     role: 'Staff Software Engineer',
     company: 'Walmart Inc',
     url: 'https://walmart.com',
-    period: '2021 — 2025',
-    description: 'Built and scaled systems at Walmart\'s Sunnyvale office.'
+    period: 'Aug 2021 — Aug 2025',
+    location: 'Sunnyvale, California',
+    year: '2021',
+    logos: [{ src: '/logos/work/walmart.png', alt: 'Walmart' }],
+    highlights: [
+      'Led DCA Privacy Compliance onboarding — identified compliance status for 50+ assets, integrated 6 into the in-house Privacy Compliance Framework across Asset Owners, Core Privacy, and AIS Teams.',
+      'Spearheaded CPRA Autopurge compliance for Customer Datalake; built Kibana dashboards for transparent compliance monitoring across multiple stakeholder groups.',
+      'Partnered with Infosys to build ML-based AutoData Mapper platform using Angular, JavaScript, CSS (frontend), GCP/BigQuery (storage), Python and Java (services), WCNP (deployment).',
+      'Innovated POCs for the Privacy Framework including Serverless Spark and Fast Update Utility; achieved $100,000+ annual GCP cost savings through autoscaling, cluster fine-tuning, and decommissioning strategies.',
+      'Designed and implemented scalable end-to-end data pipelines on GCP (Airflow, DataProc, Serverless Spark, NiFi), managing high-impact production migrations and cross-functional stakeholder alignment.',
+    ]
   },
   {
-    role: 'Tech Lead, Front End Software Engineer',
-    company: 'Williams Sonoma',
-    url: 'https://williams-sonoma.com',
-    period: '2019 — 2021',
-    description: 'Led frontend engineering initiatives at Williams Sonoma in Ann Arbor, Michigan.'
+    role: 'Tech Lead, Senior Developer',
+    company: 'Nexient Inc. (Pottery Barn / West Elm)',
+    url: 'https://nexient.com',
+    period: 'Aug 2019 — Aug 2021',
+    location: 'Ann Arbor, Michigan',
+    year: '2019',
+    logos: [
+      { src: '/logos/work/pottery-barn.png', alt: 'Pottery Barn' },
+      { src: '/logos/work/west-elm.png', alt: 'West Elm' },
+    ],
+    highlights: [
+      'Led 8 Micro Front End (MFE) teams delivering scalable e-commerce frontends in Vue, Docker, and Java across Search, Product, Recommendations, and Checkout applications.',
+      'Architected P0 cross-platform Product Information Pages for Williams Sonoma, Pottery Barn, WestElm using FreeMarker, Java, JavaScript, and Sass — establishing design consistency across 5 brands.',
+      'Improved unit test coverage to 93% using Jest and Selenium; reduced page load time by 2.2 seconds via Lighthouse-guided refactoring and CSS/macro-optimization.',
+      'Implemented analytics tracking via observer patterns for Adobe Test & Target A/B patterns; mentored team on CSS Image Sprites, Code Minification, Image Compression, and SSR.',
+    ]
+  },
+  {
+    role: 'Full Stack Developer',
+    company: 'Community4All (US Dept. of Health & Human Services)',
+    url: 'https://community4all.com',
+    period: 'Aug 2018 — May 2019',
+    location: 'Syracuse, New York',
+    year: '2018',
+    logos: [],
+    highlights: [
+      'Developed full-stack web applications for individuals with intellectual disabilities using React/Redux, Node.js, AWS EBS, jQuery/Bootstrap, Express, Google TTS API, and Maps API.',
+      'Architected a Budget Management Tool resulting in 34% improvement in user experience scores; deployed on AWS EBS with robust session and state management.',
+    ]
   },
   {
     role: 'IT & Infrastructure Intern',
     company: 'Amorepacific',
-    url: 'https://amorepacific.com',
-    period: '2018',
-    description: 'Infrastructure and IT internship in New York City.'
+    url: 'https://us.amorepacific.com',
+    period: 'Jun 2018 — Aug 2018',
+    location: 'New York City, NY',
+    year: '2018',
+    logos: [{ src: '/logos/work/amorepacific.png', alt: 'Amorepacific' }],
+    highlights: [
+      'Handled system setup and deployment for POS (Point of Sale) systems and Verifone payment devices across Amorepacific US and Canada stores, including Innisfree locations.',
+      'Supported IT infrastructure and network operations at Amorepacific\'s New York City office.',
+    ]
   }
 ];
 ---
 
-<BaseLayout title="Work" description="Professional experience of Malhar Ujawane.">
+<BaseLayout title="Work" description="Professional experience of Malhar Ujawane." breadcrumb="Work">
   <div class="max-w-content">
     <h1 class="text-display text-apple-gray-900 mb-4">Work</h1>
     <p class="text-subhead text-apple-gray-500 mb-12">Professional experience and career.</p>
 
-    <div class="space-y-10">
-      {experience.map(job => (
-        <div class="border-l-[3px] border-apple-gray-200 pl-5">
-          <div class="flex items-baseline gap-3 mb-1">
-            <h2 class="text-[17px] font-semibold text-apple-gray-900">{job.role}</h2>
-            <span class="text-[13px] text-apple-gray-400">{job.period}</span>
+    <div class="grid grid-cols-[3.25rem_0.75rem_1fr] gap-x-3">
+      {experience.map((job, index) => (
+        <article class="contents">
+          <div class={`text-right ${job.logos.length > 0 ? 'pt-8' : 'pt-0'}`}>
+            <span class="text-[13px] font-semibold text-apple-gray-400 leading-none">{job.year}</span>
           </div>
-          <p class="text-[15px] text-apple-orange mb-1">
-            <a href={job.url} target="_blank" rel="noopener" class="hover:text-apple-orange/70 transition-colors">{job.company}</a>
-          </p>
-          <p class="text-[15px] text-apple-gray-500 leading-relaxed">{job.description}</p>
-        </div>
+
+          <div class="relative self-stretch min-h-full">
+            {index > 0 && job.logos.length > 0 && (
+              <div class="absolute left-1/2 top-0 h-8 w-px -translate-x-1/2 bg-apple-gray-200" aria-hidden="true" />
+            )}
+            {index < experience.length - 1 && (
+              <div class={`absolute left-1/2 bottom-0 w-px -translate-x-1/2 bg-apple-gray-200 ${job.logos.length > 0 ? 'top-8' : 'top-0'}`} aria-hidden="true" />
+            )}
+            <div class={`relative z-10 mx-auto w-[9px] h-[9px] rounded-full bg-white border-2 border-apple-gray-300 ${job.logos.length > 0 ? 'mt-8' : 'mt-0'}`} />
+          </div>
+
+          <div class={index < experience.length - 1 ? 'pb-12' : ''}>
+            {job.logos.length > 0 && (
+              <div class="mb-4 inline-flex min-h-16 items-center gap-4 rounded-xl border border-apple-gray-100 bg-white px-4 py-3 shadow-apple-sm">
+                {job.logos.map((logo) => (
+                  <img
+                    src={logo.src}
+                    srcset={logo.srcset}
+                    alt={logo.alt}
+                    width={logo.width}
+                    height={logo.height}
+                    class="h-6 w-auto max-w-[120px] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+            )}
+            <p class="text-[13px] text-apple-gray-400 mb-1">{job.period}</p>
+            <h2 class="text-[17px] font-semibold text-apple-gray-900 mb-1">{job.role}</h2>
+            <p class="text-[15px] text-apple-orange mb-0.5">
+              <a href={job.url} target="_blank" rel="noopener" class="hover:text-apple-orange/70 transition-colors">{job.company}</a>
+            </p>
+            <p class="text-[13px] text-apple-gray-400 mb-1.5">{job.location}</p>
+            <ul class="list-disc pl-5 space-y-1">
+              {job.highlights.map(h => (
+                <li class="text-[15px] text-apple-gray-500 leading-relaxed">{h}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
       ))}
     </div>
   </div>

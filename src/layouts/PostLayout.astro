@@ -14,10 +14,20 @@ interface Props {
 }
 
 const { title, description, pubDate, updatedDate, tags = [], heroImage, type } = Astro.props;
+
+const breadcrumbByType: Record<string, string> = {
+  Post: 'Blog',
+  Guide: 'Guides',
+  Note: 'Notes',
+  Quote: 'Quotes',
+  Link: 'Inspiration',
+  Inspiration: 'Inspiration',
+};
+const breadcrumb = breadcrumbByType[type] ?? type;
 ---
 
-<BaseLayout title={title} description={description || title} image={heroImage} type="article">
-  <article class="max-w-content mx-auto">
+<BaseLayout title={title} description={description || title} image={heroImage} type="article" breadcrumb={breadcrumb}>
+  <article class="max-w-content">
     <header class="mb-12">
       <div class="flex items-center gap-2 mb-5">
         <span class="w-1.5 h-1.5 rounded-full bg-apple-orange" />

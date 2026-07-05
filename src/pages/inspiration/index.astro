@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LinkCard from '@/components/LinkCard.astro';
+import { fetchOgImage } from '@/lib/og-image';
+import { getCollection } from 'astro:content';
+import { sortPosts } from '@/lib/utils';
+
+const posts = sortPosts(await getCollection('links'));
+
+const items = await Promise.all(
+  posts.map(async (post) => ({
+    post,
+    ogImage: post.data.ogImage ?? (await fetchOgImage(post.data.externalUrl)),
+  }))
+);
+---
+
+<BaseLayout title="Inspiration" description="Curated inspiration and bookmarks by Malhar Ujawane." breadcrumb="Inspiration">
+  <h1 class="text-display text-apple-gray-900 mb-4">Inspiration</h1>
+  <p class="text-subhead text-apple-gray-500 mb-12">Interesting things I've found around the web.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+    {items.map(({ post, ogImage }) => (
+      <LinkCard post={post} ogImage={ogImage} />
+    ))}
+  </div>
+</BaseLayout>
