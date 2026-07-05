@@ -15,11 +15,11 @@
   }
 
   ::selection {
-    @apply bg-apple-blue/10 text-apple-gray-900;
+    @apply bg-apple-orange/10 text-apple-gray-900;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-apple-blue/50;
+    @apply outline-2 outline-offset-2 outline-apple-orange/50;
   }
 }
 
@@ -41,7 +41,7 @@
   }
 
   .prose-apple a {
-    @apply text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all;
+    @apply text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80 transition-all;
   }
 
   .prose-apple blockquote {

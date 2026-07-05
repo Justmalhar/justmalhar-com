@@ -20,8 +20,8 @@ const hasAuthor = typeof postData.author === 'string';
 
 <article class="group py-6 first:pt-0 last:pb-0">
   <div class="flex items-center gap-2 mb-2">
-    <span class="w-1.5 h-1.5 rounded-full bg-apple-blue" />
-    <span class="text-[13px] font-medium text-apple-blue tracking-[-0.01em]">{collectionLabel}</span>
+    <span class="w-1.5 h-1.5 rounded-full bg-apple-orange" />
+    <span class="text-[13px] font-medium text-apple-orange tracking-[-0.01em]">{collectionLabel}</span>
     <span class="text-apple-gray-300">·</span>
     <time datetime={post.data.pubDate.toISOString()} class="text-[13px] text-apple-gray-400">
       {formatDate(post.data.pubDate)}
@@ -30,7 +30,7 @@ const hasAuthor = typeof postData.author === 'string';
   
   {hasTitle ? (
     <h3 class="text-[17px] font-semibold text-apple-gray-900 leading-snug mb-1">
-      <a href={url} class="hover:text-apple-blue transition-colors">
+      <a href={url} class="hover:text-apple-orange transition-colors">
         {postData.title as string}
       </a>
     </h3>
@@ -43,7 +43,7 @@ const hasAuthor = typeof postData.author === 'string';
     </blockquote>
   ) : post.collection === 'links' ? (
     <div class="text-body text-apple-gray-500">
-      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-apple-blue hover:underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80">
+      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-apple-orange hover:underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80">
         {hasTitle ? postData.title : postData.externalUrl} ↗
       </a>
       {hasVia && (

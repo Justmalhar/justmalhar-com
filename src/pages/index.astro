@@ -28,13 +28,13 @@ const latestLink = sortPosts(links)[0];
     </p>
     <p class="text-body text-apple-gray-400 mb-8">Surat, Gujarat, India</p>
     <div class="flex gap-5">
-      <a href="/about" class="text-[15px] font-medium text-apple-blue hover:text-apple-blue/70 transition-colors">
+      <a href="/about" class="text-[15px] font-medium text-apple-orange hover:text-apple-orange/70 transition-colors">
         About →
       </a>
-      <a href="/essays" class="text-[15px] font-medium text-apple-blue hover:text-apple-blue/70 transition-colors">
+      <a href="/essays" class="text-[15px] font-medium text-apple-orange hover:text-apple-orange/70 transition-colors">
         Essays →
       </a>
-      <a href="/setup" class="text-[15px] font-medium text-apple-blue hover:text-apple-blue/70 transition-colors">
+      <a href="/setup" class="text-[15px] font-medium text-apple-orange hover:text-apple-orange/70 transition-colors">
         Setup →
       </a>
     </div>
@@ -44,12 +44,12 @@ const latestLink = sortPosts(links)[0];
     <section class="py-12 border-t border-apple-gray-100">
       <div class="grid md:grid-cols-2 gap-6">
         <a href={getPostUrl(latestEssay)} class="block p-6 rounded-2xl border border-apple-gray-100 hover:border-apple-gray-200 hover:shadow-apple-sm transition-all">
-          <span class="text-[13px] font-medium text-apple-blue tracking-[-0.01em] mb-3 block">Latest Essay</span>
+          <span class="text-[13px] font-medium text-apple-orange tracking-[-0.01em] mb-3 block">Latest Essay</span>
           <h3 class="text-[17px] font-semibold text-apple-gray-900 mb-1.5">{latestEssay.data.title}</h3>
           <p class="text-[15px] text-apple-gray-500 leading-relaxed">{latestEssay.data.description}</p>
         </a>
         <a href={latestLink.data.externalUrl} target="_blank" rel="noopener" class="block p-6 rounded-2xl border border-apple-gray-100 hover:border-apple-gray-200 hover:shadow-apple-sm transition-all">
-          <span class="text-[13px] font-medium text-apple-blue tracking-[-0.01em] mb-3 block">Latest Link</span>
+          <span class="text-[13px] font-medium text-apple-orange tracking-[-0.01em] mb-3 block">Latest Link</span>
           <h3 class="text-[17px] font-semibold text-apple-gray-900 mb-1.5">{latestLink.data.title}</h3>
           <p class="text-[15px] text-apple-gray-500 leading-relaxed">{latestLink.data.description}</p>
         </a>
@@ -65,7 +65,7 @@ const latestLink = sortPosts(links)[0];
       ))}
     </div>
     <div class="mt-8 pt-6 border-t border-apple-gray-100">
-      <a href="/essays" class="text-[15px] font-medium text-apple-blue hover:text-apple-blue/70 transition-colors">
+      <a href="/essays" class="text-[15px] font-medium text-apple-orange hover:text-apple-orange/70 transition-colors">
         View All Essays →
       </a>
     </div>

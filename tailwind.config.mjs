@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         apple: {
-          blue: '#007AFF',
+          orange: '#FF5A1F',
           gray: {
             50: '#f5f5f7',
             100: '#e8e8ed',
