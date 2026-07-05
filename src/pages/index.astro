@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
 import { SITE } from '@/lib/constants';
 import { getCollection } from 'astro:content';
-import { sortPosts } from '@/lib/utils';
+import { sortPosts, getPostUrl } from '@/lib/utils';
 
 const essays = await getCollection('essays');
 const links = await getCollection('links');
@@ -13,73 +13,64 @@ const guides = await getCollection('guides');
 
 const allPosts = [...essays, ...links, ...notes, ...quotes, ...guides];
 const recentPosts = sortPosts(allPosts).slice(0, 10);
+
+const latestEssay = sortPosts(essays)[0];
+const latestLink = sortPosts(links)[0];
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
-  <section class="hero">
-    <h1>Malhar Ujawane</h1>
-    <p class="lead">Staff Software Engineer writing about AI, coding, and technology.</p>
-    <div class="hero-links">
-      <a href="/about">About</a>
-      <a href="/essays">Essays</a>
-      <a href="/tags">Tags</a>
+  <section class="py-16 md:py-24">
+    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-gray-900 mb-4">
+      Malhar Ujawane
+    </h1>
+    <div class="w-16 h-1 bg-accent-blue mb-6"></div>
+    <p class="text-xl text-gray-600 mb-2 max-w-2xl">
+      Staff Software Engineer writing about AI, coding, and technology.
+    </p>
+    <p class="text-gray-500 mb-8">Surat, Gujarat, India</p>
+    <div class="flex gap-4">
+      <a href="/about" class="text-sm font-mono uppercase tracking-wider text-accent-blue hover:text-blue-700 transition-colors">
+        About →
+      </a>
+      <a href="/essays" class="text-sm font-mono uppercase tracking-wider text-accent-blue hover:text-blue-700 transition-colors">
+        Essays →
+      </a>
+      <a href="/setup" class="text-sm font-mono uppercase tracking-wider text-accent-blue hover:text-blue-700 transition-colors">
+        Setup →
+      </a>
     </div>
   </section>
-  
-  <section class="recent-posts">
-    <h2>Recent Writing</h2>
-    <div class="post-list">
+
+  <section class="py-12 border-t border-gray-100">
+    <div class="grid md:grid-cols-2 gap-8">
+      {latestEssay && (
+        <a href={getPostUrl(latestEssay)} class="block p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border-t-4 border-accent-blue">
+          <span class="text-xs font-mono uppercase tracking-wider text-accent-blue mb-2 block">Latest Essay</span>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">{latestEssay.data.title}</h3>
+          <p class="text-gray-600 text-sm">{latestEssay.data.description}</p>
+        </a>
+      )}
+      {latestLink && (
+        <a href={latestLink.data.externalUrl} target="_blank" rel="noopener" class="block p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border-t-4 border-accent-green">
+          <span class="text-xs font-mono uppercase tracking-wider text-accent-green mb-2 block">Latest Link</span>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">{latestLink.data.title}</h3>
+          <p class="text-gray-600 text-sm">{latestLink.data.description}</p>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-gray-100">
+    <h2 class="text-2xl font-extrabold tracking-tighter text-gray-900 mb-8">Recent Writing</h2>
+    <div class="space-y-6">
       {recentPosts.map(post => (
         <PostCard post={post} />
       ))}
     </div>
+    <div class="mt-8">
+      <a href="/essays" class="text-sm font-mono uppercase tracking-wider text-accent-blue hover:text-blue-700 transition-colors">
+        View All Essays →
+      </a>
+    </div>
   </section>
 </BaseLayout>
-
-<style>
-  .hero {
-    padding: 4rem 0;
-    text-align: center;
-  }
-  
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .lead {
-    font-size: 1.25rem;
-    color: #666;
-    margin-bottom: 1.5rem;
-  }
-  
-  .hero-links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  
-  .hero-links a {
-    color: #666;
-    text-decoration: none;
-  }
-  
-  .hero-links a:hover {
-    color: #111;
-  }
-  
-  .recent-posts {
-    padding: 2rem 0;
-  }
-  
-  .recent-posts h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .post-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-</style>
