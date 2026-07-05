@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/lib/constants';
+import { getCollection } from 'astro:content';
+
+const setupItems = await getCollection('setup');
+
+const categories = [
+  { id: 'hardware', label: 'Hardware', icon: '💻', description: 'The devices I use daily' },
+  { id: 'os', label: 'Operating System', icon: '🍎', description: 'My primary OS and config' },
+  { id: 'editor', label: 'Editor', icon: '✏️', description: 'Where I write code' },
+  { id: 'terminal', label: 'Terminal', icon: '⬛', description: 'Shell and CLI tools' },
+  { id: 'ai', label: 'AI Tools', icon: '🤖', description: 'AI assistants and models' },
+  { id: 'browser', label: 'Browser', icon: '🌐', description: 'Web browser and extensions' },
+  { id: 'productivity', label: 'Productivity', icon: '⚡', description: 'Apps that keep me organized' },
+  { id: 'deploy', label: 'Deploy', icon: '🚀', description: 'Deployment and infrastructure' },
+];
+
+function getItemsForCategory(categoryId: string) {
+  return setupItems
+    .filter(item => item.data.category === categoryId)
+    .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+}
+---
+
+<BaseLayout title={`Setup — ${SITE.title}`} description="The hardware, software, and tools I use every day.">
+  <div class="max-w-4xl">
+    <header class="mb-16">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">⚙️</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-gray-900 mb-4">Setup</h1>
+      <p class="text-xl text-gray-600">
+        The hardware, software, and tools I use every day.
+      </p>
+      <p class="text-sm text-gray-400 mt-4">
+        Inspired by <a href="https://sive.rs/setup" target="_blank" rel="noopener" class="text-accent-blue hover:underline">sive.rs/setup</a> and <a href="https://willpatrick.co.uk/setup" target="_blank" rel="noopener" class="text-accent-blue hover:underline">willpatrick.co.uk/setup</a>
+      </p>
+    </header>
+
+    <div class="space-y-16">
+      {categories.map(category => {
+        const items = getItemsForCategory(category.id);
+        if (items.length === 0) return null;
+        return (
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-2xl">{category.icon}</span>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 tracking-tight">{category.label}</h2>
+                <p class="text-sm text-gray-500">{category.description}</p>
+              </div>
+            </div>
+            <div class="space-y-4 ml-12">
+              {items.map(item => (
+                <article class="flex items-start gap-4">
+                  <span class="text-xl mt-0.5">{item.data.icon || '•'}</span>
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                      {item.data.url ? (
+                        <a href={item.data.url} target="_blank" rel="noopener" class="font-bold text-gray-900 hover:text-accent-blue transition-colors">
+                          {item.data.title}
+                        </a>
+                      ) : (
+                        <span class="font-bold text-gray-900">{item.data.title}</span>
+                      )}
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1">{item.data.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

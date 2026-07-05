@@ -8,3 +8,4 @@
 {"source":"user-event","type":"click","text":"B\n    \n      Detailed List\n      Category headers with detailed descriptions. More context per item (why you chose it).","choice":"detailed-setup","id":null,"timestamp":1783245619837}
 {"source":"user-event","type":"click","text":"C\n    \n      Visual Showcase\n      Larger cards with icons/logos, product images. More visual impact.","choice":"visual-setup","id":null,"timestamp":1783245624420}
 {"source":"user-event","type":"click","text":"B\n    \n      Detailed List\n      Category headers with detailed descriptions. More context per item (why you chose it).","choice":"detailed-setup","id":null,"timestamp":1783245632371}
+{"type":"server-stopped","reason":"idle timeout"}
