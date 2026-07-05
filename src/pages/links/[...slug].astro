@@ -21,33 +21,13 @@ const { Content } = await render(post);
   tags={post.data.tags}
   type="Link"
 >
-  <div class="external-link">
-    <a href={post.data.externalUrl} target="_blank" rel="noopener">
+  <div class="p-4 bg-apple-gray-50 rounded-xl mb-6">
+    <a href={post.data.externalUrl} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all font-medium">
       {post.data.externalUrl} ↗
     </a>
     {post.data.via && (
-      <span class="via">via {post.data.via}</span>
+      <span class="block mt-2 text-[15px] text-apple-gray-400">via {post.data.via}</span>
     )}
   </div>
   <Content />
 </PostLayout>
-
-<style>
-  .external-link {
-    background: #f9fafb;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .external-link a {
-    color: #2563eb;
-  }
-  
-  .via {
-    display: block;
-    margin-top: 0.5rem;
-    color: #666;
-    font-size: 0.875rem;
-  }
-</style>

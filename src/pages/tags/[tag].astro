@@ -24,12 +24,14 @@ const { tag, posts } = Astro.props;
 ---
 
 <BaseLayout title={`#${tag}`} description={`Posts tagged with #${tag}`}>
-  <h1>#{tag}</h1>
-  <p>{posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged with #{tag}</p>
+  <div class="max-w-content">
+    <h1 class="text-display text-apple-gray-900 mb-2">#{tag}</h1>
+    <p class="text-body text-apple-gray-400 mb-12">{posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged</p>
 
-  <div class="post-list">
-    {posts.map(post => (
-      <PostCard post={post} />
-    ))}
+    <div class="divide-y divide-apple-gray-100">
+      {posts.map(post => (
+        <PostCard post={post} />
+      ))}
+    </div>
   </div>
 </BaseLayout>

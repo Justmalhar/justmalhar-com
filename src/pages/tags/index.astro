@@ -21,47 +21,20 @@ const tagCounts = tags.map(tag => {
 ---
 
 <BaseLayout title="Tags" description="Browse all tags on Malhar Ujawane's blog.">
-  <h1>Tags</h1>
+  <div class="max-w-content">
+    <h1 class="text-display text-apple-gray-900 mb-4">Tags</h1>
+    <p class="text-subhead text-apple-gray-500 mb-12">Browse posts by topic.</p>
 
-  <div class="tag-cloud">
-    {tagCounts.map(({ tag, count }) => (
-      <a href={`/tags/${tag}`} class="tag-item">
-        <span class="tag-name">#{tag}</span>
-        <span class="tag-count">({count})</span>
-      </a>
-    ))}
+    <div class="flex flex-wrap gap-2">
+      {tagCounts.map(({ tag, count }) => (
+        <a 
+          href={`/tags/${tag}`} 
+          class="inline-flex items-center gap-1.5 px-4 py-2 bg-apple-gray-50 rounded-xl text-[15px] text-apple-gray-600 hover:bg-apple-gray-100 hover:text-apple-gray-900 transition-all"
+        >
+          <span>#{tag}</span>
+          <span class="text-[13px] text-apple-gray-400">{count}</span>
+        </a>
+      ))}
+    </div>
   </div>
 </BaseLayout>
-
-<style>
-  .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .tag-item {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 1rem;
-    background: #f9fafb;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-
-  .tag-item:hover {
-    background: #f3f4f6;
-  }
-
-  .tag-name {
-    color: #111;
-  }
-
-  .tag-count {
-    color: #666;
-    font-size: 0.875rem;
-  }
-</style>

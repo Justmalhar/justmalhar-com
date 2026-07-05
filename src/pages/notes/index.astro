@@ -8,12 +8,14 @@ const posts = sortPosts(await getCollection('notes'));
 ---
 
 <BaseLayout title="Notes" description="Short notes and observations by Malhar Ujawane.">
-  <h1>Notes</h1>
-  <p>Quick thoughts and observations.</p>
-  
-  <div class="post-list">
-    {posts.map(post => (
-      <PostCard post={post} />
-    ))}
+  <div class="max-w-content">
+    <h1 class="text-display text-apple-gray-900 mb-4">Notes</h1>
+    <p class="text-subhead text-apple-gray-500 mb-12">Quick thoughts and observations.</p>
+    
+    <div class="divide-y divide-apple-gray-100">
+      {posts.map(post => (
+        <PostCard post={post} />
+      ))}
+    </div>
   </div>
 </BaseLayout>

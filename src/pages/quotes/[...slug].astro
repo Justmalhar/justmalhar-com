@@ -20,24 +20,8 @@ const { Content } = await render(post);
   tags={post.data.tags}
   type="Quote"
 >
-  <blockquote>
+  <blockquote class="border-l-[3px] border-apple-gray-900 my-8 pl-5 text-subhead text-apple-gray-600 leading-relaxed">
     <Content />
   </blockquote>
-  <p class="attribution">
-    — {post.data.author}
-  </p>
+  <p class="text-[15px] text-apple-gray-400 italic">— {post.data.author}</p>
 </PostLayout>
-
-<style>
-  blockquote {
-    border-left: 3px solid #111;
-    margin: 2rem 0;
-    padding: 1rem 1.5rem;
-    font-size: 1.25rem;
-  }
-  
-  .attribution {
-    color: #666;
-    font-style: italic;
-  }
-</style>

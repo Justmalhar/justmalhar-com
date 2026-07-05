@@ -3,11 +3,76 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply text-gray-900 antialiased;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
-  a {
-    @apply transition-colors duration-200;
+
+  body {
+    @apply text-apple-gray-900 bg-white antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  ::selection {
+    @apply bg-apple-blue/10 text-apple-gray-900;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-apple-blue/50;
+  }
+}
+
+@layer components {
+  .prose-apple {
+    @apply text-body text-apple-gray-500 leading-relaxed;
+  }
+
+  .prose-apple h2 {
+    @apply text-heading text-apple-gray-900 mt-14 mb-4;
+  }
+
+  .prose-apple h3 {
+    @apply text-xl font-semibold text-apple-gray-900 tracking-tight mt-10 mb-3;
+  }
+
+  .prose-apple p {
+    @apply mb-6;
+  }
+
+  .prose-apple a {
+    @apply text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all;
+  }
+
+  .prose-apple blockquote {
+    @apply border-l-[3px] border-apple-gray-200 pl-5 my-10 text-apple-gray-400 italic;
+  }
+
+  .prose-apple code {
+    @apply bg-apple-gray-50 px-1.5 py-0.5 rounded text-sm font-mono text-apple-gray-700;
+  }
+
+  .prose-apple pre {
+    @apply bg-apple-gray-900 text-white p-5 rounded-xl overflow-x-auto my-8 text-sm;
+  }
+
+  .prose-apple pre code {
+    @apply bg-transparent p-0 text-white;
+  }
+
+  .prose-apple ul, .prose-apple ol {
+    @apply mb-6 pl-6;
+  }
+
+  .prose-apple li {
+    @apply mb-2;
+  }
+
+  .prose-apple img {
+    @apply rounded-2xl my-10;
+  }
+
+  .prose-apple hr {
+    @apply my-16 border-apple-gray-100;
   }
 }

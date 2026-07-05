@@ -16,67 +16,48 @@ const hasTitle = typeof postData.title === 'string';
 const hasDescription = typeof postData.description === 'string';
 const hasVia = typeof postData.via === 'string';
 const hasAuthor = typeof postData.author === 'string';
-
-// Type-based accent colors
-const typeColors: Record<string, string> = {
-  essays: 'border-l-accent-blue',
-  links: 'border-l-accent-green',
-  notes: 'border-l-gray-400',
-  quotes: 'border-l-accent-amber',
-  guides: 'border-l-accent-purple',
-};
-
-const typeTextColors: Record<string, string> = {
-  essays: 'text-accent-blue',
-  links: 'text-accent-green',
-  notes: 'text-gray-500',
-  quotes: 'text-accent-amber',
-  guides: 'text-accent-purple',
-};
-
-const borderColor = typeColors[post.collection] || 'border-l-gray-300';
-const textColor = typeTextColors[post.collection] || 'text-gray-500';
 ---
 
-<article class={`pl-4 border-l-4 ${borderColor} py-4`}>
-  <div class="flex items-center gap-3 mb-2">
-    <span class={`text-xs font-mono uppercase tracking-wider ${textColor}`}>{collectionLabel}</span>
-    <span class="text-gray-300">·</span>
-    <time datetime={post.data.pubDate.toISOString()} class="text-sm text-gray-500">
+<article class="group py-6 first:pt-0 last:pb-0">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="w-1.5 h-1.5 rounded-full bg-apple-blue" />
+    <span class="text-[13px] font-medium text-apple-blue tracking-[-0.01em]">{collectionLabel}</span>
+    <span class="text-apple-gray-300">·</span>
+    <time datetime={post.data.pubDate.toISOString()} class="text-[13px] text-apple-gray-400">
       {formatDate(post.data.pubDate)}
     </time>
   </div>
   
   {hasTitle ? (
-    <h3 class="text-lg font-bold text-gray-900 mb-1">
-      <a href={url} class="hover:text-accent-blue transition-colors">
+    <h3 class="text-[17px] font-semibold text-apple-gray-900 leading-snug mb-1">
+      <a href={url} class="hover:text-apple-blue transition-colors">
         {postData.title as string}
       </a>
     </h3>
   ) : null}
   
   {post.collection === 'quotes' ? (
-    <blockquote class="text-gray-600 italic">
+    <blockquote class="text-body text-apple-gray-500 italic leading-relaxed">
       <p>"{post.body?.slice(0, 200)}..."</p>
-      <cite class="text-sm text-gray-500 not-italic">— {hasAuthor ? postData.author : ''}</cite>
+      <cite class="text-[15px] text-apple-gray-400 not-italic">— {hasAuthor ? postData.author : ''}</cite>
     </blockquote>
   ) : post.collection === 'links' ? (
-    <div class="text-gray-600">
-      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-accent-green hover:underline">
+    <div class="text-body text-apple-gray-500">
+      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-apple-blue hover:underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80">
         {hasTitle ? postData.title : postData.externalUrl} ↗
       </a>
       {hasVia && (
-        <span class="text-sm text-gray-400 ml-2">via {postData.via}</span>
+        <span class="text-[13px] text-apple-gray-400 ml-2">via {postData.via}</span>
       )}
     </div>
   ) : hasDescription ? (
-    <p class="text-gray-600">{postData.description as string}</p>
+    <p class="text-body text-apple-gray-500 leading-relaxed">{postData.description as string}</p>
   ) : null}
   
   {post.data.tags.length > 0 && (
-    <div class="flex flex-wrap gap-2 mt-3">
+    <div class="flex flex-wrap gap-1.5 mt-3">
       {post.data.tags.map(tag => (
-        <a href={`/tags/${tag}`} class="text-xs font-mono text-gray-400 hover:text-gray-600 transition-colors">
+        <a href={`/tags/${tag}`} class="text-[12px] text-apple-gray-400 bg-apple-gray-50 px-2 py-0.5 rounded-md hover:text-apple-gray-700 hover:bg-apple-gray-100 transition-colors">
           #{tag}
         </a>
       ))}

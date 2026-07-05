@@ -2,21 +2,21 @@
 import { NAV_ITEMS } from '@/lib/constants';
 ---
 
-<header class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-100">
-  <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-extrabold tracking-tighter text-gray-900 hover:text-accent-blue transition-colors">
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+  <nav class="max-w-page mx-auto px-6 h-14 flex items-center justify-between">
+    <a href="/" class="text-[17px] font-semibold tracking-tight text-apple-gray-900 hover:text-apple-blue transition-colors">
       Malhar Ujawane
     </a>
-    <ul class="flex gap-6 list-none m-0 p-0">
+    <ul class="flex gap-1 list-none m-0 p-0">
       {NAV_ITEMS.map(item => (
         <li>
           <a 
             href={item.href} 
             class:list={[
-              'text-xs font-mono uppercase tracking-wider transition-colors',
+              'px-3 py-1.5 text-[13px] font-medium tracking-[-0.01em] rounded-lg transition-all',
               Astro.url.pathname.startsWith(item.href) 
-                ? 'text-accent-blue border-b-2 border-accent-blue pb-1' 
-                : 'text-gray-500 hover:text-gray-900'
+                ? 'text-apple-blue bg-apple-blue/5' 
+                : 'text-apple-gray-500 hover:text-apple-gray-900 hover:bg-apple-gray-50'
             ]}
           >
             {item.label}

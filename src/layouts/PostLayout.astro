@@ -14,112 +14,38 @@ interface Props {
 }
 
 const { title, description, pubDate, updatedDate, tags = [], heroImage, type } = Astro.props;
-
-// Type-based accent colors
-const typeColors: Record<string, string> = {
-  'Essay': 'border-l-accent-blue',
-  'Link': 'border-l-accent-green',
-  'Note': 'border-l-gray-400',
-  'Quote': 'border-l-accent-amber',
-  'Guide': 'border-l-accent-purple',
-};
-
-const typeTextColors: Record<string, string> = {
-  'Essay': 'text-accent-blue',
-  'Link': 'text-accent-green',
-  'Note': 'text-gray-500',
-  'Quote': 'text-accent-amber',
-  'Guide': 'text-accent-purple',
-};
-
-const borderColor = typeColors[type] || 'border-l-gray-300';
-const textColor = typeTextColors[type] || 'text-gray-500';
 ---
 
 <BaseLayout title={title} description={description || title} image={heroImage} type="article">
-  <article class="max-w-3xl">
-    <header class="mb-8">
-      <div class={`flex items-center gap-3 mb-4 pl-4 border-l-4 ${borderColor}`}>
-        <span class={`text-xs font-mono uppercase tracking-wider ${textColor}`}>{type}</span>
-        <span class="text-gray-300">·</span>
-        <time datetime={pubDate.toISOString()} class="text-sm text-gray-500">
+  <article class="max-w-content mx-auto">
+    <header class="mb-12">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-apple-blue" />
+        <span class="text-[13px] font-medium text-apple-blue tracking-[-0.01em]">{type}</span>
+        <span class="text-apple-gray-300">·</span>
+        <time datetime={pubDate.toISOString()} class="text-[13px] text-apple-gray-400">
           {formatDate(pubDate)}
         </time>
         {updatedDate && (
-          <span class="text-sm text-gray-400">(updated {formatDate(updatedDate)})</span>
+          <span class="text-[13px] text-apple-gray-400">(updated {formatDate(updatedDate)})</span>
         )}
       </div>
-      <h1 class="text-4xl md:text-5xl font-black tracking-tighter text-gray-900 mb-4">{title}</h1>
-      {description && <p class="text-xl text-gray-600">{description}</p>}
+      <h1 class="text-display text-apple-gray-900 mb-5">{title}</h1>
+      {description && <p class="text-subhead text-apple-gray-500 max-w-[580px]">{description}</p>}
     </header>
     
     {heroImage && (
-      <img src={heroImage} alt={title} class="w-full rounded-lg mb-8" />
+      <img src={heroImage} alt={title} class="w-full rounded-2xl mb-12" />
     )}
     
-    <div class="prose prose-lg max-w-none">
+    <div class="prose-apple">
       <slot />
     </div>
     
     {tags.length > 0 && (
-      <footer class="mt-12 pt-8 border-t border-gray-100">
+      <footer class="mt-16 pt-10 border-t border-apple-gray-100">
         <TagList tags={tags} />
       </footer>
     )}
   </article>
 </BaseLayout>
-
-<style is:global>
-  /* Prose styles for post content */
-  .prose {
-    @apply text-gray-700 leading-relaxed;
-  }
-  
-  .prose h2 {
-    @apply text-2xl font-bold text-gray-900 mt-12 mb-4 tracking-tight;
-  }
-  
-  .prose h3 {
-    @apply text-xl font-semibold text-gray-900 mt-8 mb-3;
-  }
-  
-  .prose p {
-    @apply mb-6;
-  }
-  
-  .prose a {
-    @apply text-accent-blue hover:underline;
-  }
-  
-  .prose blockquote {
-    @apply border-l-4 border-gray-200 pl-6 my-8 text-gray-600 italic;
-  }
-  
-  .prose code {
-    @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono;
-  }
-  
-  .prose pre {
-    @apply bg-gray-900 text-white p-6 rounded-lg overflow-x-auto my-8;
-  }
-  
-  .prose pre code {
-    @apply bg-transparent p-0;
-  }
-  
-  .prose ul, .prose ol {
-    @apply mb-6 pl-6;
-  }
-  
-  .prose li {
-    @apply mb-2;
-  }
-  
-  .prose img {
-    @apply rounded-lg my-8;
-  }
-  
-  .prose hr {
-    @apply my-12 border-gray-200;
-  }
-</style>

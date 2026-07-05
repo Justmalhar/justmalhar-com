@@ -2,55 +2,57 @@
 import { SITE } from '@/lib/constants';
 ---
 
-<footer class="bg-gray-900 text-white mt-20">
-  <div class="max-w-6xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-3 gap-12">
-      <!-- Subscribe -->
+<footer class="bg-apple-gray-900 text-white mt-24">
+  <div class="max-w-page mx-auto px-6 py-20">
+    <div class="grid md:grid-cols-3 gap-16">
       <div>
-        <h3 class="text-sm font-mono uppercase tracking-wider text-accent-blue mb-4">Subscribe</h3>
-        <p class="text-gray-400 mb-4 text-sm">Get updates via RSS or email.</p>
-        <form class="flex gap-2 mb-4" action="#" method="POST">
+        <h3 class="text-[11px] font-semibold uppercase tracking-[0.12em] text-apple-gray-400 mb-4">Subscribe</h3>
+        <p class="text-apple-gray-300 text-sm leading-relaxed mb-5">
+          Get new posts delivered to your inbox.
+        </p>
+        <form class="flex gap-2" action="#" method="POST">
           <input 
             type="email" 
             name="email" 
             placeholder="your@email.com" 
             required 
-            class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue"
+            class="flex-1 min-w-0 px-3.5 py-2.5 bg-apple-gray-800 border border-apple-gray-700 rounded-xl text-sm text-white placeholder-apple-gray-500 focus:outline-none focus:ring-2 focus:ring-apple-blue/40 focus:border-apple-blue transition-all"
           />
           <button 
             type="submit" 
-            class="px-4 py-2 bg-accent-blue text-white rounded text-sm font-medium hover:bg-blue-600 transition-colors"
+            class="px-4 py-2.5 bg-apple-blue text-white rounded-xl text-sm font-medium hover:brightness-110 transition-all active:scale-[0.98]"
           >
             Subscribe
           </button>
         </form>
-        <div class="flex gap-4">
-          <a href="/rss.xml" class="text-sm text-gray-400 hover:text-white transition-colors">RSS</a>
-          <a href="/atom.xml" class="text-sm text-gray-400 hover:text-white transition-colors">Atom</a>
+        <div class="flex gap-4 mt-4">
+          <a href="/rss.xml" class="text-[13px] text-apple-gray-400 hover:text-white transition-colors">RSS Feed</a>
+          <span class="text-apple-gray-600">·</span>
+          <a href="/atom.xml" class="text-[13px] text-apple-gray-400 hover:text-white transition-colors">Atom Feed</a>
         </div>
       </div>
 
-      <!-- Connect -->
       <div>
-        <h3 class="text-sm font-mono uppercase tracking-wider text-accent-green mb-4">Connect</h3>
-        <ul class="space-y-2 list-none p-0 m-0">
-          <li><a href={SITE.social.twitter} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Twitter/X</a></li>
-          <li><a href={SITE.social.github} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">GitHub</a></li>
-          <li><a href={SITE.social.linkedin} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a></li>
-          <li><a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Instagram</a></li>
-          <li><a href={SITE.social.threads} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Threads</a></li>
-          <li><a href={SITE.social.medium} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Medium</a></li>
+        <h3 class="text-[11px] font-semibold uppercase tracking-[0.12em] text-apple-gray-400 mb-4">Connect</h3>
+        <ul class="space-y-1.5 list-none p-0 m-0">
+          <li><a href={SITE.social.twitter} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">Twitter / X</a></li>
+          <li><a href={SITE.social.github} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">GitHub</a></li>
+          <li><a href={SITE.social.linkedin} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">LinkedIn</a></li>
+          <li><a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">Instagram</a></li>
+          <li><a href={SITE.social.threads} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">Threads</a></li>
+          <li><a href={SITE.social.medium} target="_blank" rel="noopener" class="text-[15px] text-apple-gray-300 hover:text-white transition-colors">Medium</a></li>
         </ul>
       </div>
 
-      <!-- Copyright -->
       <div>
-        <h3 class="text-sm font-mono uppercase tracking-wider text-gray-500 mb-4">Colophon</h3>
-        <p class="text-gray-500 text-sm mb-4">
-          Built with <a href="https://astro.build" class="text-gray-400 hover:text-white transition-colors">Astro</a>. 
-          Deployed on <a href="https://vercel.com" class="text-gray-400 hover:text-white transition-colors">Vercel</a>.
+        <h3 class="text-[11px] font-semibold uppercase tracking-[0.12em] text-apple-gray-400 mb-4">Colophon</h3>
+        <p class="text-apple-gray-400 text-sm leading-relaxed mb-1">
+          Built with <a href="https://astro.build" class="text-apple-gray-300 hover:text-white transition-colors">Astro</a>.
         </p>
-        <p class="text-gray-600 text-xs">
+        <p class="text-apple-gray-400 text-sm leading-relaxed mb-6">
+          Deployed on <a href="https://vercel.com" class="text-apple-gray-300 hover:text-white transition-colors">Vercel</a>.
+        </p>
+        <p class="text-apple-gray-500 text-xs">
           &copy; {new Date().getFullYear()} {SITE.author}. All rights reserved.
         </p>
       </div>

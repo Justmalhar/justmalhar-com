@@ -24,48 +24,45 @@ function getItemsForCategory(categoryId: string) {
 ---
 
 <BaseLayout title={`Setup — ${SITE.title}`} description="The hardware, software, and tools I use every day.">
-  <div class="max-w-4xl">
+  <div class="max-w-content">
     <header class="mb-16">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="text-3xl">⚙️</span>
-      </div>
-      <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-gray-900 mb-4">Setup</h1>
-      <p class="text-xl text-gray-600">
+      <h1 class="text-display text-apple-gray-900 mb-4">Setup</h1>
+      <p class="text-subhead text-apple-gray-500">
         The hardware, software, and tools I use every day.
       </p>
-      <p class="text-sm text-gray-400 mt-4">
-        Inspired by <a href="https://sive.rs/setup" target="_blank" rel="noopener" class="text-accent-blue hover:underline">sive.rs/setup</a> and <a href="https://willpatrick.co.uk/setup" target="_blank" rel="noopener" class="text-accent-blue hover:underline">willpatrick.co.uk/setup</a>
+      <p class="text-[15px] text-apple-gray-400 mt-4">
+        Inspired by <a href="https://sive.rs/setup" target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">sive.rs/setup</a> and <a href="https://willpatrick.co.uk/setup" target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">willpatrick.co.uk/setup</a>
       </p>
     </header>
 
-    <div class="space-y-16">
+    <div class="space-y-14">
       {categories.map(category => {
         const items = getItemsForCategory(category.id);
         if (items.length === 0) return null;
         return (
           <section>
-            <div class="flex items-center gap-3 mb-6">
-              <span class="text-2xl">{category.icon}</span>
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-apple-gray-100">
+              <span class="text-xl">{category.icon}</span>
               <div>
-                <h2 class="text-2xl font-bold text-gray-900 tracking-tight">{category.label}</h2>
-                <p class="text-sm text-gray-500">{category.description}</p>
+                <h2 class="text-[20px] font-semibold text-apple-gray-900 tracking-tight">{category.label}</h2>
+                <p class="text-[15px] text-apple-gray-400">{category.description}</p>
               </div>
             </div>
-            <div class="space-y-4 ml-12">
+            <div class="space-y-5">
               {items.map(item => (
                 <article class="flex items-start gap-4">
-                  <span class="text-xl mt-0.5">{item.data.icon || '•'}</span>
+                  <span class="text-lg mt-0.5">{item.data.icon || '•'}</span>
                   <div class="flex-1">
                     <div class="flex items-center gap-2">
                       {item.data.url ? (
-                        <a href={item.data.url} target="_blank" rel="noopener" class="font-bold text-gray-900 hover:text-accent-blue transition-colors">
+                        <a href={item.data.url} target="_blank" rel="noopener" class="text-[17px] font-semibold text-apple-gray-900 hover:text-apple-blue transition-colors">
                           {item.data.title}
                         </a>
                       ) : (
-                        <span class="font-bold text-gray-900">{item.data.title}</span>
+                        <span class="text-[17px] font-semibold text-apple-gray-900">{item.data.title}</span>
                       )}
                     </div>
-                    <p class="text-sm text-gray-600 mt-1">{item.data.description}</p>
+                    <p class="text-[15px] text-apple-gray-500 mt-1 leading-relaxed">{item.data.description}</p>
                   </div>
                 </article>
               ))}

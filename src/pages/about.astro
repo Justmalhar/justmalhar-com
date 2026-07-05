@@ -4,50 +4,30 @@ import { SITE } from '@/lib/constants';
 ---
 
 <BaseLayout title="About" description="About Malhar Ujawane - Staff Software Engineer.">
-  <article class="about">
-    <h1>About Malhar Ujawane</h1>
+  <div class="max-w-content">
+    <h1 class="text-display text-apple-gray-900 mb-6">About</h1>
     
-    <div class="about-content prose">
+    <div class="space-y-5 text-body text-apple-gray-500 leading-relaxed">
       <p>Staff Software Engineer with a PhD in Computer Science from Syracuse University. Previously at Walmart Inc (4 years), Williams Sonoma (2.5 years), and Amorepacific.</p>
       
       <p>Writing about AI, coding agents, software architecture, and technology. Based in Surat, Gujarat, India.</p>
       
-      <h2>Connect</h2>
-      <ul>
-        <li><a href={SITE.social.twitter} target="_blank" rel="noopener">Twitter/X</a></li>
-        <li><a href={SITE.social.github} target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href={SITE.social.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href={SITE.social.threads} target="_blank" rel="noopener">Threads</a></li>
-        <li><a href={SITE.social.medium} target="_blank" rel="noopener">Medium</a></li>
+      <h2 class="text-heading text-apple-gray-900 mt-12 mb-5">Connect</h2>
+      <ul class="space-y-2 list-disc pl-5">
+        <li><a href={SITE.social.twitter} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">Twitter/X</a></li>
+        <li><a href={SITE.social.github} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">GitHub</a></li>
+        <li><a href={SITE.social.linkedin} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">LinkedIn</a></li>
+        <li><a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">Instagram</a></li>
+        <li><a href={SITE.social.threads} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">Threads</a></li>
+        <li><a href={SITE.social.medium} target="_blank" rel="noopener" class="text-apple-blue underline underline-offset-2 decoration-apple-blue/30 hover:decoration-apple-blue/80 transition-all">Medium</a></li>
       </ul>
       
-      <h2>Subscribe</h2>
-      <p>Get updates via RSS or email:</p>
-      <div class="subscribe-links">
-        <a href="/rss.xml">RSS Feed</a>
-        <a href="/atom.xml">Atom Feed</a>
+      <h2 class="text-heading text-apple-gray-900 mt-12 mb-5">Subscribe</h2>
+      <p class="mb-4">Get updates via RSS or email:</p>
+      <div class="flex gap-3">
+        <a href="/rss.xml" class="inline-flex items-center px-4 py-2 bg-apple-blue text-white text-[15px] font-medium rounded-xl hover:brightness-110 transition-all">RSS Feed</a>
+        <a href="/atom.xml" class="inline-flex items-center px-4 py-2 bg-apple-gray-50 text-apple-gray-700 text-[15px] font-medium rounded-xl hover:bg-apple-gray-100 transition-all">Atom Feed</a>
       </div>
     </div>
-  </article>
+  </div>
 </BaseLayout>
-
-<style>
-  .about {
-    max-width: 720px;
-  }
-  
-  .about h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .subscribe-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .subscribe-links a {
-    color: #2563eb;
-  }
-</style>
