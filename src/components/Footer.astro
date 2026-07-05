@@ -2,106 +2,58 @@
 import { SITE } from '@/lib/constants';
 ---
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="footer-section">
-      <h3>Subscribe</h3>
-      <p>Get updates via RSS or email.</p>
-      <form class="newsletter-form" action="#" method="POST">
-        <input type="email" name="email" placeholder="your@email.com" required />
-        <button type="submit">Subscribe</button>
-      </form>
-      <div class="feed-links">
-        <a href="/rss.xml">RSS</a>
-        <a href="/atom.xml">Atom</a>
+<footer class="bg-gray-900 text-white mt-20">
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-3 gap-12">
+      <!-- Subscribe -->
+      <div>
+        <h3 class="text-sm font-mono uppercase tracking-wider text-accent-blue mb-4">Subscribe</h3>
+        <p class="text-gray-400 mb-4 text-sm">Get updates via RSS or email.</p>
+        <form class="flex gap-2 mb-4" action="#" method="POST">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="your@email.com" 
+            required 
+            class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm text-white placeholder-gray-500 focus:outline-none focus:border-accent-blue"
+          />
+          <button 
+            type="submit" 
+            class="px-4 py-2 bg-accent-blue text-white rounded text-sm font-medium hover:bg-blue-600 transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+        <div class="flex gap-4">
+          <a href="/rss.xml" class="text-sm text-gray-400 hover:text-white transition-colors">RSS</a>
+          <a href="/atom.xml" class="text-sm text-gray-400 hover:text-white transition-colors">Atom</a>
+        </div>
       </div>
-    </div>
 
-    <div class="footer-section">
-      <h3>Connect</h3>
-      <ul class="social-links">
-        <li><a href={SITE.social.twitter} target="_blank" rel="noopener">Twitter</a></li>
-        <li><a href={SITE.social.github} target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href={SITE.social.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram</a></li>
-      </ul>
-    </div>
+      <!-- Connect -->
+      <div>
+        <h3 class="text-sm font-mono uppercase tracking-wider text-accent-green mb-4">Connect</h3>
+        <ul class="space-y-2 list-none p-0 m-0">
+          <li><a href={SITE.social.twitter} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Twitter/X</a></li>
+          <li><a href={SITE.social.github} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">GitHub</a></li>
+          <li><a href={SITE.social.linkedin} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a></li>
+          <li><a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Instagram</a></li>
+          <li><a href={SITE.social.threads} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Threads</a></li>
+          <li><a href={SITE.social.medium} target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors text-sm">Medium</a></li>
+        </ul>
+      </div>
 
-    <div class="footer-section">
-      <p>&copy; {new Date().getFullYear()} {SITE.author}. All rights reserved.</p>
+      <!-- Copyright -->
+      <div>
+        <h3 class="text-sm font-mono uppercase tracking-wider text-gray-500 mb-4">Colophon</h3>
+        <p class="text-gray-500 text-sm mb-4">
+          Built with <a href="https://astro.build" class="text-gray-400 hover:text-white transition-colors">Astro</a>. 
+          Deployed on <a href="https://vercel.com" class="text-gray-400 hover:text-white transition-colors">Vercel</a>.
+        </p>
+        <p class="text-gray-600 text-xs">
+          &copy; {new Date().getFullYear()} {SITE.author}. All rights reserved.
+        </p>
+      </div>
     </div>
   </div>
 </footer>
-
-<style>
-  .site-footer {
-    border-top: 1px solid #e5e7eb;
-    padding: 3rem 0;
-    margin-top: 4rem;
-  }
-
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .footer-section h3 {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .newsletter-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .newsletter-form input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
-  }
-
-  .newsletter-form button {
-    padding: 0.5rem 1rem;
-    background: #111;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .feed-links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .feed-links a {
-    color: #666;
-    text-decoration: none;
-  }
-
-  .social-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .social-links li {
-    margin-bottom: 0.5rem;
-  }
-
-  .social-links a {
-    color: #666;
-    text-decoration: none;
-  }
-
-  .social-links a:hover {
-    color: #111;
-  }
-</style>
