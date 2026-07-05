@@ -17,7 +17,6 @@ export const SITE = {
 export const NAV_ITEMS = [
   { label: "Essays", href: "/essays" },
   { label: "Links", href: "/links" },
-  { label: "Notes", href: "/notes" },
   { label: "Quotes", href: "/quotes" },
   { label: "Guides", href: "/guides" },
   { label: "Setup", href: "/setup" },
