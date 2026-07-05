@@ -14,79 +14,112 @@ interface Props {
 }
 
 const { title, description, pubDate, updatedDate, tags = [], heroImage, type } = Astro.props;
+
+// Type-based accent colors
+const typeColors: Record<string, string> = {
+  'Essay': 'border-l-accent-blue',
+  'Link': 'border-l-accent-green',
+  'Note': 'border-l-gray-400',
+  'Quote': 'border-l-accent-amber',
+  'Guide': 'border-l-accent-purple',
+};
+
+const typeTextColors: Record<string, string> = {
+  'Essay': 'text-accent-blue',
+  'Link': 'text-accent-green',
+  'Note': 'text-gray-500',
+  'Quote': 'text-accent-amber',
+  'Guide': 'text-accent-purple',
+};
+
+const borderColor = typeColors[type] || 'border-l-gray-300';
+const textColor = typeTextColors[type] || 'text-gray-500';
 ---
 
 <BaseLayout title={title} description={description || title} image={heroImage} type="article">
-  <article class="post">
-    <header class="post-header">
-      <div class="post-meta">
-        <span class="post-type">{type}</span>
-        <time datetime={pubDate.toISOString()}>
+  <article class="max-w-3xl">
+    <header class="mb-8">
+      <div class={`flex items-center gap-3 mb-4 pl-4 border-l-4 ${borderColor}`}>
+        <span class={`text-xs font-mono uppercase tracking-wider ${textColor}`}>{type}</span>
+        <span class="text-gray-300">·</span>
+        <time datetime={pubDate.toISOString()} class="text-sm text-gray-500">
           {formatDate(pubDate)}
         </time>
         {updatedDate && (
-          <span class="updated">(updated {formatDate(updatedDate)})</span>
+          <span class="text-sm text-gray-400">(updated {formatDate(updatedDate)})</span>
         )}
       </div>
-      <h1>{title}</h1>
-      {description && <p class="description">{description}</p>}
+      <h1 class="text-4xl md:text-5xl font-black tracking-tighter text-gray-900 mb-4">{title}</h1>
+      {description && <p class="text-xl text-gray-600">{description}</p>}
     </header>
     
     {heroImage && (
-      <img src={heroImage} alt={title} class="hero-image" />
+      <img src={heroImage} alt={title} class="w-full rounded-lg mb-8" />
     )}
     
-    <div class="post-content prose">
+    <div class="prose prose-lg max-w-none">
       <slot />
     </div>
     
     {tags.length > 0 && (
-      <footer class="post-footer">
+      <footer class="mt-12 pt-8 border-t border-gray-100">
         <TagList tags={tags} />
       </footer>
     )}
   </article>
 </BaseLayout>
 
-<style>
-  .post {
-    max-width: 720px;
+<style is:global>
+  /* Prose styles for post content */
+  .prose {
+    @apply text-gray-700 leading-relaxed;
   }
   
-  .post-header {
-    margin-bottom: 2rem;
+  .prose h2 {
+    @apply text-2xl font-bold text-gray-900 mt-12 mb-4 tracking-tight;
   }
   
-  .post-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    color: #666;
+  .prose h3 {
+    @apply text-xl font-semibold text-gray-900 mt-8 mb-3;
   }
   
-  .post-type {
-    background: #f3f4f6;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
+  .prose p {
+    @apply mb-6;
   }
   
-  .description {
-    font-size: 1.25rem;
-    color: #555;
-    margin-top: 0.5rem;
+  .prose a {
+    @apply text-accent-blue hover:underline;
   }
   
-  .hero-image {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+  .prose blockquote {
+    @apply border-l-4 border-gray-200 pl-6 my-8 text-gray-600 italic;
   }
   
-  .post-footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e5e7eb;
+  .prose code {
+    @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+  
+  .prose pre {
+    @apply bg-gray-900 text-white p-6 rounded-lg overflow-x-auto my-8;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+  
+  .prose ul, .prose ol {
+    @apply mb-6 pl-6;
+  }
+  
+  .prose li {
+    @apply mb-2;
+  }
+  
+  .prose img {
+    @apply rounded-lg my-8;
+  }
+  
+  .prose hr {
+    @apply my-12 border-gray-200;
   }
 </style>
