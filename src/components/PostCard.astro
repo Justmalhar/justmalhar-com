@@ -16,129 +16,70 @@ const hasTitle = typeof postData.title === 'string';
 const hasDescription = typeof postData.description === 'string';
 const hasVia = typeof postData.via === 'string';
 const hasAuthor = typeof postData.author === 'string';
+
+// Type-based accent colors
+const typeColors: Record<string, string> = {
+  essays: 'border-l-accent-blue',
+  links: 'border-l-accent-green',
+  notes: 'border-l-gray-400',
+  quotes: 'border-l-accent-amber',
+  guides: 'border-l-accent-purple',
+};
+
+const typeTextColors: Record<string, string> = {
+  essays: 'text-accent-blue',
+  links: 'text-accent-green',
+  notes: 'text-gray-500',
+  quotes: 'text-accent-amber',
+  guides: 'text-accent-purple',
+};
+
+const borderColor = typeColors[post.collection] || 'border-l-gray-300';
+const textColor = typeTextColors[post.collection] || 'text-gray-500';
 ---
 
-<article class="post-card">
-  <div class="post-meta">
-    <span class="post-type">{collectionLabel}</span>
-    <time datetime={post.data.pubDate.toISOString()}>
+<article class={`pl-4 border-l-4 ${borderColor} py-4`}>
+  <div class="flex items-center gap-3 mb-2">
+    <span class={`text-xs font-mono uppercase tracking-wider ${textColor}`}>{collectionLabel}</span>
+    <span class="text-gray-300">·</span>
+    <time datetime={post.data.pubDate.toISOString()} class="text-sm text-gray-500">
       {formatDate(post.data.pubDate)}
     </time>
   </div>
   
   {hasTitle ? (
-    <h3 class="post-title">
-      <a href={url}>{postData.title as string}</a>
+    <h3 class="text-lg font-bold text-gray-900 mb-1">
+      <a href={url} class="hover:text-accent-blue transition-colors">
+        {postData.title as string}
+      </a>
     </h3>
   ) : null}
   
   {post.collection === 'quotes' ? (
-    <blockquote class="post-quote">
-      <p>{post.body?.slice(0, 200)}...</p>
-      <cite>— {hasAuthor ? postData.author : ''}</cite>
+    <blockquote class="text-gray-600 italic">
+      <p>"{post.body?.slice(0, 200)}..."</p>
+      <cite class="text-sm text-gray-500 not-italic">— {hasAuthor ? postData.author : ''}</cite>
     </blockquote>
   ) : post.collection === 'links' ? (
-    <div class="post-link">
-      <a href={postData.externalUrl as string} target="_blank" rel="noopener">
-        {hasTitle ? postData.title : postData.externalUrl}
+    <div class="text-gray-600">
+      <a href={postData.externalUrl as string} target="_blank" rel="noopener" class="text-accent-green hover:underline">
+        {hasTitle ? postData.title : postData.externalUrl} ↗
       </a>
       {hasVia && (
-        <span class="post-via">via {postData.via}</span>
+        <span class="text-sm text-gray-400 ml-2">via {postData.via}</span>
       )}
     </div>
   ) : hasDescription ? (
-    <p class="post-excerpt">{postData.description as string}</p>
+    <p class="text-gray-600">{postData.description as string}</p>
   ) : null}
   
   {post.data.tags.length > 0 && (
-    <div class="post-tags">
+    <div class="flex flex-wrap gap-2 mt-3">
       {post.data.tags.map(tag => (
-        <a href={`/tags/${tag}`} class="tag">#{tag}</a>
+        <a href={`/tags/${tag}`} class="text-xs font-mono text-gray-400 hover:text-gray-600 transition-colors">
+          #{tag}
+        </a>
       ))}
     </div>
   )}
 </article>
-
-<style>
-  .post-card {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .post-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    color: #666;
-  }
-  
-  .post-type {
-    background: #f3f4f6;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-  }
-  
-  .post-title {
-    font-size: 1.25rem;
-    margin: 0.5rem 0;
-  }
-  
-  .post-title a {
-    text-decoration: none;
-  }
-  
-  .post-title a:hover {
-    text-decoration: underline;
-  }
-  
-  .post-excerpt {
-    color: #555;
-    margin: 0.5rem 0;
-  }
-  
-  .post-quote {
-    border-left: 3px solid #e5e7eb;
-    margin: 0.5rem 0;
-    padding: 0 1rem;
-    color: #555;
-  }
-  
-  .post-quote cite {
-    display: block;
-    margin-top: 0.5rem;
-    font-style: normal;
-    color: #666;
-  }
-  
-  .post-link {
-    margin: 0.5rem 0;
-  }
-  
-  .post-link a {
-    color: #111;
-  }
-  
-  .post-via {
-    color: #666;
-    margin-left: 0.5rem;
-  }
-  
-  .post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-  
-  .tag {
-    font-size: 0.875rem;
-    color: #666;
-    text-decoration: none;
-  }
-  
-  .tag:hover {
-    color: #111;
-  }
-</style>
