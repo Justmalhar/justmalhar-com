@@ -1,0 +1,64 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface Experience {
+  role: string;
+  company: string;
+  url: string;
+  period: string;
+  description: string;
+}
+
+const experience: Experience[] = [
+  {
+    role: 'AI Solutions and Delivery Lead',
+    company: 'Mobiiworld',
+    url: 'https://mobiiworld.com',
+    period: 'Present',
+    description: 'Leading AI solution architecture and delivery.'
+  },
+  {
+    role: 'Staff Software Engineer',
+    company: 'Walmart Inc',
+    url: 'https://walmart.com',
+    period: '2021 — 2025',
+    description: 'Built and scaled systems at Walmart\'s Sunnyvale office.'
+  },
+  {
+    role: 'Tech Lead, Front End Software Engineer',
+    company: 'Williams Sonoma',
+    url: 'https://williams-sonoma.com',
+    period: '2019 — 2021',
+    description: 'Led frontend engineering initiatives at Williams Sonoma in Ann Arbor, Michigan.'
+  },
+  {
+    role: 'IT & Infrastructure Intern',
+    company: 'Amorepacific',
+    url: 'https://amorepacific.com',
+    period: '2018',
+    description: 'Infrastructure and IT internship in New York City.'
+  }
+];
+---
+
+<BaseLayout title="Work" description="Professional experience of Malhar Ujawane.">
+  <div class="max-w-content">
+    <h1 class="text-display text-apple-gray-900 mb-4">Work</h1>
+    <p class="text-subhead text-apple-gray-500 mb-12">Professional experience and career.</p>
+
+    <div class="space-y-10">
+      {experience.map(job => (
+        <div class="border-l-[3px] border-apple-gray-200 pl-5">
+          <div class="flex items-baseline gap-3 mb-1">
+            <h2 class="text-[17px] font-semibold text-apple-gray-900">{job.role}</h2>
+            <span class="text-[13px] text-apple-gray-400">{job.period}</span>
+          </div>
+          <p class="text-[15px] text-apple-orange mb-1">
+            <a href={job.url} target="_blank" rel="noopener" class="hover:text-apple-orange/70 transition-colors">{job.company}</a>
+          </p>
+          <p class="text-[15px] text-apple-gray-500 leading-relaxed">{job.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
