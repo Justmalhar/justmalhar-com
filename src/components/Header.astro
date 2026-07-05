@@ -2,13 +2,23 @@
 import { NAV_ITEMS } from '@/lib/constants';
 ---
 
-<header class="site-header">
-  <nav class="site-nav">
-    <a href="/" class="site-logo">Malhar Ujawane</a>
-    <ul class="nav-links">
+<header class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-gray-100">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-extrabold tracking-tighter text-gray-900 hover:text-accent-blue transition-colors">
+      Malhar Ujawane
+    </a>
+    <ul class="flex gap-6 list-none m-0 p-0">
       {NAV_ITEMS.map(item => (
         <li>
-          <a href={item.href} class:list={[{ active: Astro.url.pathname.startsWith(item.href) }]}>
+          <a 
+            href={item.href} 
+            class:list={[
+              'text-xs font-mono uppercase tracking-wider transition-colors',
+              Astro.url.pathname.startsWith(item.href) 
+                ? 'text-accent-blue border-b-2 border-accent-blue pb-1' 
+                : 'text-gray-500 hover:text-gray-900'
+            ]}
+          >
             {item.label}
           </a>
         </li>
@@ -17,56 +27,13 @@ import { NAV_ITEMS } from '@/lib/constants';
   </nav>
 </header>
 
-<style>
-  .site-header {
-    border-bottom: 1px solid #e5e7eb;
-    padding: 1rem 0;
+<script>
+  const menuButton = document.querySelector('.mobile-menu-button');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (menuButton && navLinks) {
+    menuButton.addEventListener('click', () => {
+      navLinks.classList.toggle('hidden');
+    });
   }
-
-  .site-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .site-logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: #111;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: #666;
-    font-size: 0.9rem;
-  }
-
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: #111;
-  }
-
-  @media (max-width: 768px) {
-    .site-nav {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .nav-links {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-</style>
+</script>
