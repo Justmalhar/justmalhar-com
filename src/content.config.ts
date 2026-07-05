@@ -64,4 +64,16 @@ const guides = defineCollection({
   }),
 });
 
-export const collections = { essays, links, notes, quotes, guides };
+const setup = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/setup' }),
+  schema: z.object({
+    title: z.string(),
+    category: z.enum(['hardware', 'os', 'editor', 'terminal', 'ai', 'browser', 'productivity', 'deploy']),
+    description: z.string(),
+    url: z.string().optional(),
+    icon: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { essays, links, notes, quotes, guides, setup };

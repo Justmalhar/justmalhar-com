@@ -1,0 +1,90 @@
+<h2>Design Direction for justmalhar.com</h2>
+<p class="subtitle">Which visual style feels most like you?</p>
+
+<div class="cards">
+  <div class="card" data-choice="minimal" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #fafafa; padding: 2rem; font-family: 'Georgia', serif;">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.02em;">Malhar Ujawane</div>
+        <div style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">Staff Software Engineer</div>
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #888;">
+            <span>ESSAYS</span><span>July 4, 2026</span>
+          </div>
+          <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">Hello World: Rebuilding My Digital Home</div>
+          <div style="color: #555; font-size: 0.95rem;">Why I'm starting fresh with a new blog built on Astro...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Minimal Editorial</h3>
+      <p>Clean serif typography, generous whitespace, newspaper-inspired. Think: instapaper, medium early days.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modern" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%); padding: 2rem; font-family: -apple-system, sans-serif; color: white;">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.03em;">Malhar Ujawane</div>
+        <div style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 2rem;">Building with AI · Writing about code</div>
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+          <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Essays</span>
+          <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Links</span>
+          <span style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">Notes</span>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem;">
+          <div style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">Hello World: Rebuilding My Digital Home</div>
+          <div style="color: #888; font-size: 0.9rem;">July 4, 2026 · #meta #web #astro</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Dark Modern</h3>
+      <p>Dark mode first, gradient accents, pill tags. Think: linear.app, raycast, vercel.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="warm" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #fdf6e3; padding: 2rem; font-family: 'Georgia', serif;">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #3c3836;">Malhar Ujawane</div>
+        <div style="color: #7c6f64; font-size: 1.1rem; margin-bottom: 2rem;">Staff Software Engineer · Surat, India</div>
+        <div style="border-bottom: 2px solid #d5c4a1; padding-bottom: 1.5rem;">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #928374; text-transform: uppercase; letter-spacing: 0.05em;">
+            <span>Essays</span><span>·</span><span>July 4, 2026</span>
+          </div>
+          <div style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #3c3836;">Hello World: Rebuilding My Digital Home</div>
+          <div style="color: #504945; font-size: 0.95rem; font-style: italic;">Why I'm starting fresh with a new blog built on Astro...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Warm Solarized</h3>
+      <p>Solarized-inspired warm tones, comfortable reading. Think: bear app, notion dark.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bold" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #ffffff; padding: 2rem; font-family: -apple-system, sans-serif;">
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div style="font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.04em; line-height: 1;">Malhar<br>Ujawane</div>
+        <div style="width: 60px; height: 4px; background: #2563eb; margin: 1.5rem 0;"></div>
+        <div style="color: #666; font-size: 1.1rem; margin-bottom: 2rem;">Staff Software Engineer writing about AI, coding, and technology.</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="border-left: 3px solid #2563eb; padding-left: 1rem;">
+            <div style="font-size: 0.75rem; color: #2563eb; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;">Latest Essay</div>
+            <div style="font-weight: 600;">Hello World: Rebuilding My Digital Home</div>
+          </div>
+          <div style="border-left: 3px solid #10b981; padding-left: 1rem;">
+            <div style="font-size: 0.75rem; color: #10b981; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;">Latest Link</div>
+            <div style="font-weight: 600;">Simon Willison's Weblog</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>D. Bold Structured</h3>
+      <p>Strong typography, accent colors, grid layout. Think: stripe.com, tailwindcss.com.</p>
+    </div>
+  </div>
+</div>
