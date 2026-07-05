@@ -9,7 +9,6 @@ export const SITE = {
     github: "https://github.com/justmalhar",
     linkedin: "https://linkedin.com/in/justmalhar",
     instagram: "https://instagram.com/justmalhar",
-    threads: "https://threads.net/@justmalhar",
     medium: "https://medium.com/justmalhar",
   }
 } as const;
