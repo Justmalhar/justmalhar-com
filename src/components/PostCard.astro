@@ -19,8 +19,12 @@ const postData = post.data as Record<string, unknown>;
 const hasTitle = typeof postData.title === 'string';
 const hasDescription = typeof postData.description === 'string';
 const hasVia = typeof postData.via === 'string';
-const hasAuthor = typeof postData.author === 'string';
+const hasAuthor =
+  typeof postData.author === 'string' &&
+  postData.author.trim() !== '' &&
+  postData.author.trim().toLowerCase() !== 'unknown';
 const heroImage = typeof postData.heroImage === 'string' ? postData.heroImage : undefined;
+const quoteBody = post.collection === 'quotes' ? (post.body?.trim() ?? '') : '';
 
 const readTime = hasDescription
   ? Math.max(1, Math.ceil((postData.description as string).split(/\s+/).length / 200))
@@ -83,8 +87,10 @@ const readTime = hasDescription
 
     {post.collection === 'quotes' ? (
       <blockquote class="text-body text-apple-gray-500 italic leading-relaxed">
-        <p>"{post.body?.slice(0, 200)}..."</p>
-        <cite class="text-[15px] text-apple-gray-400 not-italic">— {hasAuthor ? postData.author : ''}</cite>
+        <p class="whitespace-pre-line">"{quoteBody}"</p>
+        {hasAuthor && (
+          <cite class="text-[15px] text-apple-gray-400 not-italic">— {postData.author as string}</cite>
+        )}
       </blockquote>
     ) : post.collection === 'links' ? (
       <div class="text-body text-apple-gray-500">

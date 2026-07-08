@@ -12,10 +12,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const author = post.data.author?.trim();
+const hasAuthor = Boolean(author) && author.toLowerCase() !== 'unknown';
 ---
 
 <PostLayout
-  title={post.data.author ? `Quoting ${post.data.author}` : 'Quote'}
+  title={hasAuthor ? `Quoting ${author}` : 'Quote'}
   pubDate={post.data.pubDate}
   tags={post.data.tags}
   type="Quote"
@@ -23,5 +25,7 @@ const { Content } = await render(post);
   <blockquote class="border-l-[3px] border-apple-gray-900 my-8 pl-5 text-subhead text-apple-gray-600 leading-relaxed">
     <Content />
   </blockquote>
-  <p class="text-[15px] text-apple-gray-400 italic">— {post.data.author}</p>
+  {hasAuthor && (
+    <p class="text-[15px] text-apple-gray-400 italic">— {author}</p>
+  )}
 </PostLayout>

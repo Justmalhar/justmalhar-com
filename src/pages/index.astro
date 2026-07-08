@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import LinkCard from '@/components/LinkCard.astro';
 import NavIcon from '@/components/NavIcon.astro';
 import PostCard from '@/components/PostCard.astro';
 import { SITE } from '@/lib/constants';
+import { fetchOgImage } from '@/lib/og-image';
 import { getCollection } from 'astro:content';
 import { sortPosts } from '@/lib/utils';
 
@@ -11,6 +13,13 @@ const links = await getCollection('links');
 
 const recentBlog = sortPosts(blog).slice(0, 5);
 const recentInspiration = sortPosts(links).slice(0, 6);
+
+const inspirationItems = await Promise.all(
+  recentInspiration.map(async (post) => ({
+    post,
+    ogImage: post.data.ogImage ?? (await fetchOgImage(post.data.externalUrl)),
+  }))
+);
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description} breadcrumb="Home">
@@ -20,12 +29,18 @@ const recentInspiration = sortPosts(links).slice(0, 6);
       alt="Malhar Ujawane"
       class="w-24 h-24 rounded-full object-cover mx-auto mb-5 ring-2 ring-apple-gray-100"
     />
-    <h1 class="text-[22px] font-bold text-apple-gray-900 tracking-[-0.02em] mb-1">
-      Malhar Ujawane <span class="text-apple-gray-400 font-medium">/ Creator.</span>
+    <h1 class="text-[22px] font-bold text-apple-gray-900 tracking-[-0.02em] mb-3">
+      Malhar Ujawane
     </h1>
-    <p class="text-[15px] text-apple-gray-500 leading-relaxed max-w-[480px] mx-auto mb-5">
-      Crafting thoughtful ideas, exploring creative paths, and sharing the work that shapes my journey.
-    </p>
+    <div class="text-[15px] text-apple-gray-500 leading-relaxed max-w-[560px] mx-auto mb-5 text-balance space-y-3">
+      <p>
+        I lead AI Solutions and Delivery in MobiiLabs at <a href="https://mobiiworld.com" target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">Mobii</a>, building enterprise AI for Dubai.
+        Before that: 10+ years in the US, Silicon Valley at <a href="https://walmart.com" target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">Walmart</a>, plus <a href="https://potterybarn.com" target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">Pottery Barn</a> and <a href="https://westelm.com" target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">West Elm</a>, shipping to millions.
+      </p>
+      <p>
+        I write about <a href="/tags/ai" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">AI</a>, <a href="/tags/software engineering" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">software engineering</a>, <a href="/tags/opensource" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">opensource</a>, and <a href="/tags/books" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">books</a>; open-source hundreds of projects on <a href={SITE.social.github} target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">GitHub</a>; and I&rsquo;m building <a href="https://getmaverick.sh" target="_blank" rel="noopener noreferrer" class="text-apple-orange hover:text-apple-orange/70 transition-colors font-medium">Maverick</a>.
+      </p>
+    </div>
 
     <div class="flex items-center justify-center gap-1">
       <a href={SITE.social.twitter} target="_blank" rel="noopener" class="p-2 rounded-lg text-apple-gray-400 hover:text-apple-orange hover:bg-apple-orange/5 transition-all" aria-label="Twitter / X">
@@ -62,18 +77,18 @@ const recentInspiration = sortPosts(links).slice(0, 6);
     </section>
   )}
 
-  {recentInspiration.length > 0 && (
+  {inspirationItems.length > 0 && (
     <section>
-      <div class="flex items-center gap-2 mb-4">
+      <div class="flex items-center gap-2 mb-6">
         <NavIcon name="inspiration" class="text-apple-orange" />
         <h2 class="text-[18px] font-bold text-apple-gray-900 tracking-[-0.02em]">Inspiration</h2>
       </div>
-      <div class="divide-y divide-apple-gray-100">
-        {recentInspiration.map(post => (
-          <PostCard post={post} showType={false} />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+        {inspirationItems.map(({ post, ogImage }) => (
+          <LinkCard post={post} ogImage={ogImage} />
         ))}
       </div>
-      <div class="mt-6">
+      <div class="mt-8">
         <a href="/inspiration" class="text-[14px] font-medium text-apple-orange hover:text-apple-orange/70 transition-colors">
           View all inspiration →
         </a>
