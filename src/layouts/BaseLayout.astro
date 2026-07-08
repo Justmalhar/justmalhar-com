@@ -4,6 +4,7 @@ import Sidebar from '@/components/Sidebar.astro';
 import RightSidebar from '@/components/RightSidebar.astro';
 import MobileHeader from '@/components/MobileHeader.astro';
 import MobileAside from '@/components/MobileAside.astro';
+import Analytics from '@vercel/analytics/astro';
 import { SITE } from '@/lib/constants';
 import '@/styles/global.css';
 
@@ -52,5 +53,6 @@ const {
           <RightSidebar />
         </div>
     </div>
+    <Analytics />
   </body>
 </html>
