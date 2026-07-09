@@ -24,56 +24,351 @@
 }
 
 @layer components {
+  /* ─── Markdown / MDX prose (GitHub-like, brand colors) ─── */
   .prose-apple {
-    @apply text-body text-apple-gray-500 leading-relaxed;
+    @apply text-body text-apple-gray-600 leading-relaxed;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Headings */
+  .prose-apple h1 {
+    @apply text-[1.75rem] sm:text-[2rem] font-bold text-apple-gray-900 tracking-tight mt-12 mb-4;
+    line-height: 1.25;
   }
 
   .prose-apple h2 {
-    @apply text-heading text-apple-gray-900 mt-14 mb-4;
+    @apply text-[1.375rem] sm:text-heading font-bold text-apple-gray-900 tracking-tight mt-12 mb-4 pb-2;
+    border-bottom: 1px solid theme('colors.apple.gray.100');
+    line-height: 1.3;
   }
 
   .prose-apple h3 {
     @apply text-xl font-semibold text-apple-gray-900 tracking-tight mt-10 mb-3;
+    line-height: 1.35;
   }
 
+  .prose-apple h4 {
+    @apply text-lg font-semibold text-apple-gray-900 tracking-tight mt-8 mb-2;
+  }
+
+  .prose-apple h5,
+  .prose-apple h6 {
+    @apply text-base font-semibold text-apple-gray-800 mt-6 mb-2;
+  }
+
+  .prose-apple h1:first-child,
+  .prose-apple h2:first-child,
+  .prose-apple h3:first-child,
+  .prose-apple h4:first-child {
+    @apply mt-0;
+  }
+
+  /* Paragraphs & inline */
   .prose-apple p {
-    @apply mb-6;
+    @apply mb-5;
+  }
+
+  .prose-apple strong {
+    @apply font-semibold text-apple-gray-900;
+  }
+
+  .prose-apple em {
+    @apply italic;
+  }
+
+  .prose-apple del {
+    @apply line-through text-apple-gray-400;
+  }
+
+  .prose-apple mark {
+    @apply bg-apple-orange/15 text-apple-gray-900 rounded px-0.5;
   }
 
   .prose-apple a {
-    @apply text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80 transition-all;
+    @apply text-apple-orange font-medium underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange transition-colors;
   }
 
-  .prose-apple blockquote {
-    @apply border-l-[3px] border-apple-gray-200 pl-5 my-10 text-apple-gray-400 italic;
+  .prose-apple a:hover {
+    @apply text-apple-orange;
   }
 
-  .prose-apple code {
-    @apply bg-apple-gray-50 px-1.5 py-0.5 rounded text-sm font-mono text-apple-gray-700;
+  /* Lists — restore markers wiped by Tailwind preflight */
+  .prose-apple ul {
+    list-style-type: disc;
+    @apply mb-5 pl-7;
   }
 
-  .prose-apple pre {
-    @apply bg-apple-gray-900 text-white p-5 rounded-xl overflow-x-auto my-8 text-sm;
+  .prose-apple ol {
+    list-style-type: decimal;
+    @apply mb-5 pl-7;
   }
 
-  .prose-apple pre code {
-    @apply bg-transparent p-0 text-white;
+  .prose-apple ul ul {
+    list-style-type: circle;
+    @apply mb-0 mt-2;
   }
 
-  .prose-apple ul, .prose-apple ol {
-    @apply mb-6 pl-6;
+  .prose-apple ul ul ul {
+    list-style-type: square;
+  }
+
+  .prose-apple ol ol {
+    list-style-type: lower-alpha;
+    @apply mb-0 mt-2;
+  }
+
+  .prose-apple ol ol ol {
+    list-style-type: lower-roman;
   }
 
   .prose-apple li {
+    @apply mb-1.5 pl-1;
+    display: list-item;
+  }
+
+  .prose-apple li::marker {
+    color: theme('colors.apple.gray.400');
+  }
+
+  .prose-apple li > p {
     @apply mb-2;
   }
 
-  .prose-apple img {
-    @apply rounded-2xl my-10;
+  .prose-apple li > p:last-child {
+    @apply mb-0;
   }
 
+  .prose-apple li > ul,
+  .prose-apple li > ol {
+    @apply mt-2 mb-0;
+  }
+
+  /* Task lists (GFM) */
+  .prose-apple ul.contains-task-list,
+  .prose-apple ul:has(> li > input[type='checkbox']) {
+    list-style: none;
+    @apply pl-1;
+  }
+
+  .prose-apple li.task-list-item,
+  .prose-apple li:has(> input[type='checkbox']) {
+    @apply list-none pl-0;
+  }
+
+  .prose-apple input[type='checkbox'] {
+    @apply mr-2 align-middle accent-apple-orange;
+  }
+
+  /* Blockquotes */
+  .prose-apple blockquote {
+    @apply border-l-[3px] border-apple-gray-200 pl-5 my-8 text-apple-gray-500;
+  }
+
+  .prose-apple blockquote p {
+    @apply mb-3;
+  }
+
+  .prose-apple blockquote p:last-child {
+    @apply mb-0;
+  }
+
+  .prose-apple blockquote > :first-child {
+    @apply mt-0;
+  }
+
+  /* Horizontal rule */
   .prose-apple hr {
-    @apply my-16 border-apple-gray-100;
+    @apply my-12 border-0 border-t border-apple-gray-100;
+  }
+
+  /* Inline code */
+  .prose-apple :not(pre) > code {
+    @apply bg-apple-gray-50 text-apple-gray-800 px-1.5 py-0.5 rounded-md text-[0.875em] font-mono;
+    border: 1px solid theme('colors.apple.gray.100');
+  }
+
+  /* Code blocks (Shiki + enhancer chrome) */
+  .prose-apple pre,
+  .prose-apple .code-block pre {
+    @apply bg-apple-gray-900 text-apple-gray-50 overflow-x-auto text-[13px] leading-relaxed;
+    margin: 0;
+    padding: 1rem 1.125rem;
+    border-radius: 0;
+    tab-size: 2;
+  }
+
+  .prose-apple pre code,
+  .prose-apple .code-block pre code {
+    @apply bg-transparent p-0 text-inherit border-0 rounded-none text-[13px];
+    font-family: theme('fontFamily.mono');
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+  }
+
+  .prose-apple .code-block {
+    @apply my-8 overflow-hidden;
+    border-radius: 8px;
+    border: 1px solid theme('colors.apple.gray.800');
+    background: theme('colors.apple.gray.900');
+  }
+
+  .prose-apple .code-block-header {
+    @apply flex items-center justify-between gap-3 px-3.5 py-2;
+    background: #161618;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .prose-apple .code-block-lang {
+    @apply text-[11px] font-medium uppercase tracking-wider text-apple-gray-400 font-mono;
+  }
+
+  .prose-apple .code-copy-btn {
+    @apply inline-flex items-center gap-1.5 text-[11px] font-medium text-apple-gray-400
+      hover:text-white transition-colors px-2 py-1 rounded-md;
+    background: transparent;
+    border: 1px solid transparent;
+  }
+
+  .prose-apple .code-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .prose-apple .code-copy-btn[data-copied='true'] {
+    @apply text-emerald-400;
+  }
+
+  /* Bare pre (before enhancer, or without header) */
+  .prose-apple > pre,
+  .prose-apple p + pre,
+  .prose-apple li pre {
+    @apply my-8 rounded-lg;
+    border: 1px solid theme('colors.apple.gray.800');
+  }
+
+  /* Tables — GitHub-style */
+  .prose-apple .table-wrap {
+    @apply my-8 w-full overflow-x-auto;
+    border-radius: 8px;
+    border: 1px solid theme('colors.apple.gray.100');
+  }
+
+  .prose-apple .table-wrap table {
+    @apply my-0 border-0 rounded-none;
+  }
+
+  .prose-apple table {
+    @apply w-full my-8 text-[15px] border-collapse;
+    border-radius: 8px;
+    border: 1px solid theme('colors.apple.gray.100');
+  }
+
+  .prose-apple thead {
+    @apply bg-apple-gray-50;
+  }
+
+  .prose-apple th {
+    @apply px-4 py-2.5 text-left text-[13px] font-semibold text-apple-gray-900 whitespace-nowrap;
+    border-bottom: 1px solid theme('colors.apple.gray.100');
+  }
+
+  .prose-apple td {
+    @apply px-4 py-2.5 text-apple-gray-600;
+    border-bottom: 1px solid theme('colors.apple.gray.100');
+  }
+
+  .prose-apple tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .prose-apple tbody tr:hover {
+    @apply bg-apple-gray-50/60;
+  }
+
+  /* Images — centered, 8px radius, optional caption */
+  .prose-apple img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+  }
+
+  .prose-apple figure {
+    @apply my-8;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .prose-apple figure img {
+    @apply my-0;
+  }
+
+  .prose-apple figcaption,
+  .prose-apple .img-caption {
+    @apply text-center text-[13px] text-apple-gray-400 mt-3 leading-snug px-2;
+  }
+
+  /* Definition lists */
+  .prose-apple dl {
+    @apply mb-5;
+  }
+
+  .prose-apple dt {
+    @apply font-semibold text-apple-gray-900 mt-4;
+  }
+
+  .prose-apple dd {
+    @apply pl-4 text-apple-gray-600 mb-2;
+  }
+
+  /* Keyboard */
+  .prose-apple kbd {
+    @apply inline-block px-1.5 py-0.5 text-[12px] font-mono text-apple-gray-700 bg-apple-gray-50 rounded;
+    border: 1px solid theme('colors.apple.gray.200');
+    box-shadow: 0 1px 0 theme('colors.apple.gray.200');
+  }
+
+  /* Abbreviations */
+  .prose-apple abbr[title] {
+    @apply underline decoration-dotted cursor-help;
+  }
+
+  /* Details / summary */
+  .prose-apple details {
+    @apply my-6 rounded-lg border border-apple-gray-100 bg-apple-gray-50/50 px-4 py-3;
+  }
+
+  .prose-apple summary {
+    @apply cursor-pointer font-medium text-apple-gray-900;
+  }
+
+  .prose-apple details[open] summary {
+    @apply mb-3;
+  }
+
+  /* Footnotes (GFM) */
+  .prose-apple .footnotes {
+    @apply mt-12 pt-6 border-t border-apple-gray-100 text-[13px] text-apple-gray-400;
+  }
+
+  .prose-apple .footnotes ol {
+    @apply pl-5;
+  }
+
+  .prose-apple sup a {
+    @apply no-underline text-[11px] font-semibold;
+  }
+
+  /* Video / iframe embeds */
+  .prose-apple iframe,
+  .prose-apple video {
+    @apply max-w-full my-8 rounded-lg mx-auto block;
   }
 
   .line-clamp-2 {

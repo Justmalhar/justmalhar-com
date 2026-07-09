@@ -1,0 +1,203 @@
+---
+/**
+ * Client-side enhancements for .prose-apple markdown content:
+ * - Code block chrome (language label + copy button)
+ * - Image figure wrapping + caption from title (preferred) or alt
+ */
+---
+
+<script>
+  function detectLanguage(pre) {
+    const explicit =
+      pre.getAttribute('data-language') ||
+      pre.dataset.language ||
+      pre.getAttribute('data-lang');
+    if (explicit) return explicit;
+
+    const classList = [
+      ...Array.from(pre.classList),
+      ...Array.from(pre.querySelector('code')?.classList ?? []),
+    ];
+
+    for (const cls of classList) {
+      const match = cls.match(/^(?:language|lang)-(.+)$/i);
+      if (match) return match[1];
+    }
+
+    return '';
+  }
+
+  function formatLang(lang) {
+    if (!lang) return 'code';
+    const aliases = {
+      js: 'JavaScript',
+      jsx: 'JSX',
+      ts: 'TypeScript',
+      tsx: 'TSX',
+      py: 'Python',
+      rb: 'Ruby',
+      sh: 'Shell',
+      bash: 'Bash',
+      zsh: 'Zsh',
+      yml: 'YAML',
+      yaml: 'YAML',
+      md: 'Markdown',
+      mdx: 'MDX',
+      json: 'JSON',
+      html: 'HTML',
+      css: 'CSS',
+      scss: 'SCSS',
+      sql: 'SQL',
+      go: 'Go',
+      rs: 'Rust',
+      rust: 'Rust',
+      java: 'Java',
+      kt: 'Kotlin',
+      swift: 'Swift',
+      c: 'C',
+      cpp: 'C++',
+      csharp: 'C#',
+      cs: 'C#',
+      php: 'PHP',
+      text: 'Text',
+      plaintext: 'Text',
+      diff: 'Diff',
+      docker: 'Dockerfile',
+      dockerfile: 'Dockerfile',
+      toml: 'TOML',
+      ini: 'INI',
+      graphql: 'GraphQL',
+      gql: 'GraphQL',
+    };
+    return aliases[lang.toLowerCase()] ?? lang;
+  }
+
+  function enhanceCodeBlocks() {
+    document.querySelectorAll('.prose-apple pre').forEach((pre) => {
+      if (pre.closest('.code-block')) return;
+      if (pre.dataset.enhanced === 'true') return;
+      pre.dataset.enhanced = 'true';
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+
+      const lang = document.createElement('span');
+      lang.className = 'code-block-lang';
+      lang.textContent = formatLang(detectLanguage(pre));
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'code-copy-btn';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span class="code-copy-label">Copy</span>
+      `;
+
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.textContent ?? pre.textContent ?? '';
+        const label = btn.querySelector('.code-copy-label');
+        const markCopied = () => {
+          btn.dataset.copied = 'true';
+          if (label) label.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.dataset.copied = 'false';
+            if (label) label.textContent = 'Copy';
+          }, 2000);
+        };
+
+        try {
+          await navigator.clipboard.writeText(code);
+          markCopied();
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          markCopied();
+        }
+      });
+
+      header.appendChild(lang);
+      header.appendChild(btn);
+
+      const parent = pre.parentNode;
+      if (!parent) return;
+      parent.insertBefore(wrapper, pre);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+    });
+  }
+
+  function isDecorativeAlt(alt) {
+    if (!alt || alt.length < 2) return true;
+    if (/\.(png|jpe?g|gif|webp|svg|avif)$/i.test(alt)) return true;
+    return false;
+  }
+
+  function enhanceImages() {
+    document.querySelectorAll('.prose-apple img').forEach((img) => {
+      if (img.closest('figure')) return;
+      if (img.dataset.enhanced === 'true') return;
+      img.dataset.enhanced = 'true';
+
+      // Prefer explicit title for caption; fall back to meaningful alt
+      const captionText =
+        img.getAttribute('title') ||
+        (img.alt && img.alt.trim() && !isDecorativeAlt(img.alt) ? img.alt.trim() : '');
+
+      const figure = document.createElement('figure');
+      const parent = img.parentNode;
+      if (!parent) return;
+
+      if (parent instanceof HTMLParagraphElement && parent.children.length === 1) {
+        parent.replaceWith(figure);
+      } else {
+        parent.insertBefore(figure, img);
+      }
+
+      figure.appendChild(img);
+
+      if (captionText) {
+        const cap = document.createElement('figcaption');
+        cap.textContent = captionText;
+        figure.appendChild(cap);
+      }
+    });
+  }
+
+  function enhanceTables() {
+    document.querySelectorAll('.prose-apple table').forEach((table) => {
+      if (table.closest('.table-wrap')) return;
+      if (table.dataset.enhanced === 'true') return;
+      table.dataset.enhanced = 'true';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      const parent = table.parentNode;
+      if (!parent) return;
+      parent.insertBefore(wrap, table);
+      wrap.appendChild(table);
+    });
+  }
+
+  function enhance() {
+    enhanceCodeBlocks();
+    enhanceImages();
+    enhanceTables();
+  }
+
+  enhance();
+  document.addEventListener('astro:page-load', enhance);
+  document.addEventListener('DOMContentLoaded', enhance);
+</script>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TagList from '@/components/TagList.astro';
+import ProseEnhancer from '@/components/ProseEnhancer.astro';
 import { formatDate } from '@/lib/utils';
 
 interface Props {
@@ -51,6 +52,8 @@ const breadcrumb = breadcrumbByType[type] ?? type;
     <div class="prose-apple">
       <slot />
     </div>
+
+    <ProseEnhancer />
     
     {tags.length > 0 && (
       <footer class="mt-16 pt-10 border-t border-apple-gray-100">
