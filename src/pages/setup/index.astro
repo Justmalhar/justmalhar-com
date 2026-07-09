@@ -1,75 +1,143 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import SetupIcon from '@/components/SetupIcon.astro';
 import { SITE } from '@/lib/constants';
 import { getCollection } from 'astro:content';
 
 const setupItems = await getCollection('setup');
 
 const categories = [
-  { id: 'hardware', label: 'Hardware', icon: '💻', description: 'The devices I use daily' },
-  { id: 'os', label: 'Operating System', icon: '🍎', description: 'My primary OS and config' },
-  { id: 'editor', label: 'Editor', icon: '✏️', description: 'Where I write code' },
-  { id: 'terminal', label: 'Terminal', icon: '⬛', description: 'Shell and CLI tools' },
-  { id: 'ai', label: 'AI Tools', icon: '🤖', description: 'AI assistants and models' },
-  { id: 'browser', label: 'Browser', icon: '🌐', description: 'Web browser and extensions' },
-  { id: 'productivity', label: 'Productivity', icon: '⚡', description: 'Apps that keep me organized' },
-  { id: 'deploy', label: 'Deploy', icon: '🚀', description: 'Deployment and infrastructure' },
-];
+  { id: 'hardware', label: 'Hardware', icon: 'laptop', description: 'Devices I use every day' },
+  { id: 'os', label: 'Operating Systems', icon: 'apple', description: 'Primary and secondary environments' },
+  { id: 'editor', label: 'Editor & IDE', icon: 'code', description: 'Where code gets written' },
+  { id: 'terminal', label: 'Terminal & CLI', icon: 'terminal', description: 'Shell, package managers, and local tooling' },
+  { id: 'ai', label: 'AI Tools', icon: 'sparkles', description: 'Models and agents in daily workflow' },
+  { id: 'browser', label: 'Browser', icon: 'globe', description: 'Web browsing and research' },
+  { id: 'productivity', label: 'Productivity & Design', icon: 'zap', description: 'Notes, design, and collaboration' },
+  { id: 'deploy', label: 'Deploy & Infrastructure', icon: 'rocket', description: 'Hosting, DBs, and cloud' },
+] as const;
 
 function getItemsForCategory(categoryId: string) {
   return setupItems
-    .filter(item => item.data.category === categoryId)
+    .filter((item) => item.data.category === categoryId)
     .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 }
+
+const totalItems = setupItems.length;
+const activeCategories = categories.filter((c) => getItemsForCategory(c.id).length > 0);
 ---
 
 <BaseLayout title={`Setup — ${SITE.title}`} description="The hardware, software, and tools I use every day." breadcrumb="Setup">
   <div class="max-w-content">
-    <header class="mb-16">
+    <header class="mb-12 sm:mb-16">
       <h1 class="text-display text-apple-gray-900 mb-4">Setup</h1>
-      <p class="text-subhead text-apple-gray-500">
-        The hardware, software, and tools I use every day.
+      <p class="text-subhead text-apple-gray-500 max-w-[540px]">
+        The hardware, software, and tools I use every day — from the M4 MacBook Air to the AI agents that ship with me.
       </p>
-      <p class="text-[15px] text-apple-gray-400 mt-4">
-        Inspired by <a href="https://sive.rs/setup" target="_blank" rel="noopener" class="text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80 transition-all">sive.rs/setup</a> and <a href="https://willpatrick.co.uk/setup" target="_blank" rel="noopener" class="text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange/80 transition-all">willpatrick.co.uk/setup</a>
-      </p>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-5 text-[13px] text-apple-gray-400">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-apple-orange" />
+          {totalItems} tools across {activeCategories.length} categories
+        </span>
+        <span class="hidden sm:inline text-apple-gray-200">·</span>
+        <span>
+          Inspired by{' '}
+          <a href="https://sive.rs/setup" target="_blank" rel="noopener" class="text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange transition-colors">sive.rs</a>
+          {' '}and{' '}
+          <a href="https://willpatrick.co.uk/setup" target="_blank" rel="noopener" class="text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange transition-colors">willpatrick.co.uk</a>
+        </span>
+      </div>
     </header>
 
-    <div class="space-y-14">
-      {categories.map(category => {
+    {/* Jump nav */}
+    <nav class="mb-14 -mx-1 overflow-x-auto pb-1" aria-label="Setup categories">
+      <ul class="flex flex-wrap gap-2 list-none m-0 p-0">
+        {activeCategories.map((category) => (
+          <li>
+            <a
+              href={`#${category.id}`}
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-medium text-apple-gray-600 bg-apple-gray-50 border border-apple-gray-100 hover:border-apple-gray-200 hover:bg-white hover:text-apple-gray-900 transition-colors"
+            >
+              <SetupIcon name={category.icon} size={14} class="text-apple-orange" />
+              {category.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="space-y-16">
+      {categories.map((category) => {
         const items = getItemsForCategory(category.id);
         if (items.length === 0) return null;
         return (
-          <section>
-            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-apple-gray-100">
-              <span class="text-xl">{category.icon}</span>
-              <div>
-                <h2 class="text-[20px] font-semibold text-apple-gray-900 tracking-tight">{category.label}</h2>
-                <p class="text-[15px] text-apple-gray-400">{category.description}</p>
+          <section id={category.id} class="scroll-mt-24">
+            <div class="flex items-start gap-3.5 mb-6 pb-4 border-b border-apple-gray-100">
+              <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-apple-orange/10 text-apple-orange shrink-0">
+                <SetupIcon name={category.icon} size={20} />
               </div>
+              <div class="min-w-0 pt-0.5">
+                <h2 class="text-[20px] font-semibold text-apple-gray-900 tracking-tight">{category.label}</h2>
+                <p class="text-[14px] text-apple-gray-400 mt-0.5">{category.description}</p>
+              </div>
+              <span class="ml-auto text-[12px] tabular-nums text-apple-gray-300 pt-2 shrink-0">
+                {items.length}
+              </span>
             </div>
-            <div class="space-y-5">
-              {items.map(item => (
-                <article class="flex items-start gap-4">
-                  <span class="text-lg mt-0.5">{item.data.icon || '•'}</span>
-                  <div class="flex-1">
-                    <div class="flex items-center gap-2">
-                      {item.data.url ? (
-                        <a href={item.data.url} target="_blank" rel="noopener" class="text-[17px] font-semibold text-apple-gray-900 hover:text-apple-orange transition-colors">
+
+            <ul class="grid gap-3 list-none m-0 p-0 sm:grid-cols-1">
+              {items.map((item) => (
+                <li>
+                  {item.data.url ? (
+                    <a
+                      href={item.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="group flex items-start gap-4 p-4 rounded-xl border border-apple-gray-100 bg-white hover:border-apple-gray-200 hover:shadow-apple-sm hover:bg-apple-gray-50/40 transition-all"
+                    >
+                      <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-apple-gray-50 border border-apple-gray-100 text-apple-gray-700 group-hover:text-apple-orange group-hover:border-apple-orange/20 group-hover:bg-apple-orange/5 transition-colors shrink-0">
+                        <SetupIcon name={item.data.icon || 'sparkles'} size={18} />
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2">
+                          <span class="text-[16px] font-semibold text-apple-gray-900 group-hover:text-apple-orange transition-colors tracking-tight">
+                            {item.data.title}
+                          </span>
+                          <SetupIcon name="external-link" size={13} class="text-apple-gray-300 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                        </div>
+                        <p class="text-[14px] text-apple-gray-500 mt-1 leading-relaxed">
+                          {item.data.description}
+                        </p>
+                      </div>
+                    </a>
+                  ) : (
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-apple-gray-100 bg-white">
+                      <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-apple-gray-50 border border-apple-gray-100 text-apple-gray-700 shrink-0">
+                        <SetupIcon name={item.data.icon || 'sparkles'} size={18} />
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <span class="text-[16px] font-semibold text-apple-gray-900 tracking-tight">
                           {item.data.title}
-                        </a>
-                      ) : (
-                        <span class="text-[17px] font-semibold text-apple-gray-900">{item.data.title}</span>
-                      )}
+                        </span>
+                        <p class="text-[14px] text-apple-gray-500 mt-1 leading-relaxed">
+                          {item.data.description}
+                        </p>
+                      </div>
                     </div>
-                    <p class="text-[15px] text-apple-gray-500 mt-1 leading-relaxed">{item.data.description}</p>
-                  </div>
-                </article>
+                  )}
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         );
       })}
     </div>
+
+    <footer class="mt-20 pt-8 border-t border-apple-gray-100">
+      <p class="text-[14px] text-apple-gray-400 leading-relaxed">
+        This list evolves. Last major refresh: July 2026. If something here is useful to you,{' '}
+        <a href="https://x.com/justmalhar" target="_blank" rel="noopener" class="text-apple-orange underline underline-offset-2 decoration-apple-orange/30 hover:decoration-apple-orange transition-colors">say hello</a>.
+      </p>
+    </footer>
   </div>
 </BaseLayout>

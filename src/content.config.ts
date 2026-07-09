@@ -72,6 +72,7 @@ const setup = defineCollection({
     category: z.enum(['hardware', 'os', 'editor', 'terminal', 'ai', 'browser', 'productivity', 'deploy']),
     description: z.string(),
     url: z.string().optional(),
+    /** Lucide-style icon key used by SetupIcon.astro */
     icon: z.string().optional(),
     order: z.number().default(0),
   }),
